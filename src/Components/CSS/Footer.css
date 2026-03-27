@@ -1,0 +1,57 @@
+body {
+    font-family: sans-serif;
+}
+
+.footer {
+    border-top: 1 ps solid red;
+    height: 300px;
+    width: 100%;
+    background-color: brown;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.first-footer {
+    height: 80%;
+    width: 30%;
+    /* background-color: white; */
+}
+
+.footer-logo img {
+    height: 50px;
+}
+
+.footer-logo p {
+    color: white;
+}
+
+.second-footer {
+    height: 80%;
+    width: 30%;
+    /* background-color: white; */
+}
+
+.second-footer h3 {
+ /* text-align: center; */
+}
+
+.second-footer ul {
+    list-style: none;
+}
+
+.second-footer ul li {
+    line-height: 25px;
+    cursor: pointer;
+    color: white;
+}
+
+.second-footer ul li:hover {
+    color: blue;
+}
+
+.third-footer {
+    height: 80%;
+    width: 30%;
+}
