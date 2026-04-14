@@ -5,7 +5,10 @@ import Products from './Pages/Products'
 import Contact from './Pages/Contact'
 import About from './Pages/About'
 import Login from './Pages/Login'
+import Sign from './Pages/Sign'
 import DashboardLayout from './Components/DashboardLayout'
+import { ToastContainer, toast } from 'react-toastify';
+import AddProduct from './Pages/Admin/AddProduct'
 
 const App = () => {
   return (
@@ -18,6 +21,7 @@ const App = () => {
             <Route path='/about' element={<About />}/>
             <Route path='/contact' element={<Contact />}/>
             <Route path='/login' element={<Login />}/>
+            <Route path='/sign' element={<Sign />}/>
 
 
 
@@ -25,7 +29,9 @@ const App = () => {
 
             {/* Dashboard */}
             <Route path='/dashboardLayout' element={<DashboardLayout />}/>
+            <Route path='/add-product' element={<AddProduct />}/>
         </Routes>
+         <ToastContainer />
      </BrowserRouter>
     
     </>

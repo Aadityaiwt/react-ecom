@@ -1,5 +1,40 @@
 .product-container {
     display: flex;
-    gap: 10px;
+    gap: 30px;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 20px 70px;
+}
+
+.card-outer {
+    width: 250px;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #d7c666;
+    overflow: hidden;
+}
+
+.card-outer img {
+    height: 180px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+.card-outer button {
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    border: 1px solid;
+    background-color: rgb(229, 233, 221);
+    margin: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.5s ease;
+}
+
+.card-outer button:hover {
+ background-color: rgb(129, 161, 64);
+ color: white;
 }

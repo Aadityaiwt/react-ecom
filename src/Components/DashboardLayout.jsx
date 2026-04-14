@@ -1,82 +1,106 @@
-import React, { useState } from 'react'
-import { useNavigate, NavLink } from 'react-router-dom'
-import './CSS/DashboardLayout.css'
-import { MdDashboard, MdOutlineProductionQuantityLimits, MdMarkunreadMailbox } from "react-icons/md";
+import React, { useState, useEffect } from "react";
+import { useNavigate, NavLink } from "react-router-dom";
+import "./CSS/DashboardLayout.css";
+import {
+  MdDashboard,
+  MdOutlineProductionQuantityLimits,
+  MdMarkunreadMailbox,
+} from "react-icons/md";
 import { IoMdContact, IoIosLogOut } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
+import Swal from "sweetalert2";
+import { TiThMenu } from "react-icons/ti";
 
-const DashboardLayout = () => {
-    const [open, setOpen] = useState(true)
-    const navigate = useNavigate();
+const DashboardLayout = ({children}) => {
+  const navigate = useNavigate();
 
-    const handleLogout = () => {
-        localStorage.clear()
-        navigate('/login')
+  const token = localStorage.getItem("token")
+  useEffect(()=> {
+    if(!token) {
+      navigate('/login')
     }
+  }, [])
 
-    return (
-        <div className="container">
 
-            {/* Sidebar */}
-            <div className={open ? 'sidebar open' : "sidebar"}>
 
-                <h2 className="logo">Admin</h2>
 
-                <NavLink to="/dashboard" className='navlinks'>
-                    <MdDashboard />
-                    <span>Dashboard</span>
-                </NavLink>
+  const [open, setOpen] = useState(false);
 
-                <NavLink to="/products" className='navlinks'>
-                    <MdOutlineProductionQuantityLimits />
-                    <span>Products</span>
-                </NavLink>
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure to Logout?",
+      text: "After this You can not redirect to login page",
+      icon: "question",
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Logout!",
+          text: "You are logged out.",
+          icon: "success",
+        });
+        localStorage.clear();
+        navigate("/login");
+      }
+    });
+  };
 
-                <NavLink to="/orders" className='navlinks'>
-                    <MdMarkunreadMailbox />
-                    <span>Orders</span>
-                </NavLink>
+  return (
+    <div className="container">
+      {/* Sidebar */}
+      <div className={open ? "sidebar open" : "sidebar"}>
+        <h2 className="logo">Admin</h2>
 
-                <NavLink to="/contact" className='navlinks'>
-                    <IoMdContact />
-                    <span>Contact</span>
-                </NavLink>
+        <NavLink to="/dashboard" className="navlinks">
+          <MdDashboard />
+          <span>Dashboard</span>
+        </NavLink>
 
-                <NavLink to="/profile" className='navlinks'>
-                    <CgProfile />
-                    <span>Profile</span>
-                </NavLink>
+        <NavLink to="/add-product" className="navlinks">
+          <MdOutlineProductionQuantityLimits />
+          <span>Products</span>
+        </NavLink>
 
-                <button className='logout' onClick={handleLogout}>
-                    <IoIosLogOut />
-                    <span>Logout</span>
-                </button>
+        <NavLink to="/orders" className="navlinks">
+          <MdMarkunreadMailbox />
+          <span>Orders</span>
+        </NavLink>
 
-            </div>
+        <NavLink to="/contact" className="navlinks">
+          <IoMdContact />
+          <span>Contact</span>
+        </NavLink>
 
-            {/* Main */}
-            <div className="main">
+        <NavLink to="/profile" className="navlinks">
+          <CgProfile />
+          <span>Profile</span>
+        </NavLink>
 
-                {/* Header */}
-                <div className="header">
-                    <button onClick={() => setOpen(!open)}>?</button>
-                    <h3>Dashboard</h3>
-                </div>
+        <button className="logout" onClick={handleLogout}>
+          <IoIosLogOut />
+          <span>Logout</span>
+        </button>
+      </div>
 
-                {/* Content */}
-                <div className="content">
-
-                    <div className="card">Users<br /><b>120</b></div>
-                    <div className="card">Orders<br /><b>80</b></div>
-                    <div className="card">Revenue<br /><b>?25,000</b></div>
-                    <div className="card">Products<br /><b>50</b></div>
-
-                </div>
-
-            </div>
-
+      {/* Main */}
+      <div className="main">
+        {/* Header */}
+        <div className="header">
+          <button onClick={() => setOpen(!open)}>
+            <TiThMenu />{" "}
+          </button>
+          <h3>Dashboard</h3>
         </div>
-    )
-}
 
-export default DashboardLayout
+        {/* Content */}
+        <div className="content">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardLayout;

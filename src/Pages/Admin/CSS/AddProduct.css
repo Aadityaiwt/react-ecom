@@ -1,0 +1,96 @@
+.header-button{
+    height: 50px;
+    width: 100%;
+    background-color: rgb(0, 183, 255);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.add-product-image {
+    height: 80px;
+    width: 80px;
+}
+
+.ed-btn {
+    height: 40px;
+    width: 100px;
+    background-color:  rgb(0, 183, 255);
+    border-radius: 10px;
+    margin: 5px;
+    border: none;
+}
+
+.add-form-btn {
+ height: 40px;
+ width: 150px;
+ background-color: rgb(92, 193, 255);
+ border-radius: 10px;
+ border: 1px solid;
+ font-size: 15px;
+ color: black;
+}
+
+.p-datatable .p-column-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p-datatable .p-datatable-tbody td,tr {
+  text-align: center !important;
+  border: 1px solid #000;
+  padding: 10px;
+}
+
+
+.ed-btn {
+  height: 35px;
+  width: 90px;
+  color: white;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+
+.m-0 {
+    height: 400px;
+    width: 500px;
+    background-color: brown;
+    display: flex;
+    align-items: center;
+}
+
+.m-0 input {
+    height: 45px;
+    width: 300px;
+    margin: 15px;
+    border-radius: 10px;
+}
+
+.p-dialog .p-dialog-content {
+    
+    padding: 20px;
+    overflow: hidden;
+}
+
+.p-dialog {
+  border-radius: 10px;
+  padding: 20px;
+  color: White;
+  font-size: 18px;
+}
+
+.add-btn {
+    height: 45px;
+    width: 150px;
+    border-radius: 10px;
+    background-color: #3b82f6;
+    color: white;
+    font-size: 15px;
+}
+
+.dialog {
+    width: 450px;
+}
