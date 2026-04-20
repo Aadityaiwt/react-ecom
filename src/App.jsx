@@ -9,6 +9,8 @@ import Sign from './Pages/Sign'
 import DashboardLayout from './Components/DashboardLayout'
 import { ToastContainer, toast } from 'react-toastify';
 import AddProduct from './Pages/Admin/AddProduct'
+import Services from './Pages/Services'
+import Cart from './Pages/Cart'
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
             <Route path='/contact' element={<Contact />}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/sign' element={<Sign />}/>
+            <Route path='/services' element={<Services />}/>
+            <Route path='/cart' element={<Cart />}/>
 
 
 

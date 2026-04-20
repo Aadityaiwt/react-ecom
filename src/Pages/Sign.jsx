@@ -42,8 +42,7 @@ const Sign = () => {
 
         <p className="margin" style={{ width: "80%" }}>
           By continuing, you accept our{" "}
-          <Link href="#">Terms of Service</Link> and acknowledge that you have read our{" "}
-          <Link href="#">Privacy Policy</Link>
+          <Link>Terms of Service</Link> and acknowledgement.
         </p>
       </div>
     </>

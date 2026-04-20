@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../Pages/CSS/Login.css'
 import axios from 'axios'
-import { useNavigate , NavLink } from 'react-router-dom'
+import { useNavigate , NavLink, Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () => {
@@ -67,10 +67,10 @@ const Login = () => {
         <span className="margin">Forgot password?</span>
       </div>
       <button className="btn-icon margin" id="btn" onClick={handleLogin} disabled={loading}>{loading ? "Loading.." : "Login"}</button>
-      <p className="margin"><a href="">Can't Access Yout Account?</a></p>
+      <p className="margin"><Link href="">Can't Access Yout Account?</Link></p>
       <p>
         Don't have an account?
-        <a href="">Sign Up</a>
+        <Link to='/sign'> Sign Up</Link>
       </p>
     </div>
     

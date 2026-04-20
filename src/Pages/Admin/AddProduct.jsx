@@ -11,19 +11,15 @@ import { Column } from "primereact/column";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
-
   const navigate = useNavigate();
 
-  const token = localStorage.getItem("token")
-  useEffect(()=> {
-    if(!token) {
-      navigate('/login')
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
     }
-  }, [])
+  }, []);
 
-
-
-  
   const [title, setTitle] = useState("");
   const [des, setDes] = useState("");
   const [price, setPrice] = useState("");
@@ -33,61 +29,61 @@ const AddProduct = () => {
   const [product, setProduct] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [search, setSearch] = useState("");
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoader(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoader(true);
 
-  const formData = new FormData();
-  formData.append("title", title);
-  formData.append("des", des);
-  formData.append("price", price);
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("des", des);
+    formData.append("price", price);
 
-  if (image) {
-    formData.append("image", image);
-  }
-
-  try {
-    let res;
-
-    if (editMode) {
-      res = await axios.post(
-        `http://localhost:3000/api/update/${selectedProduct._id}`,
-        formData
-      );
-
-      toast("Product Updated");
-    } else {
-      res = await axios.post("http://localhost:3000/api/add", formData);
-      toast("Product Added");
+    if (image) {
+      formData.append("image", image);
     }
 
-    fetchProduct();
-    resetForm();
+    try {
+      let res;
 
-  } catch (error) {
-    console.log(error);
-    toast("Something went wrong");
-  } finally {
-    setLoader(false);
-  }
-}
+      if (editMode) {
+        res = await axios.post(
+          `http://localhost:3000/api/update/${selectedProduct._id}`,
+          formData,
+        );
+
+        toast("Product Updated");
+      } else {
+        res = await axios.post("http://localhost:3000/api/add", formData);
+        toast("Product Added");
+      }
+
+      fetchProduct();
+      resetForm();
+    } catch (error) {
+      console.log(error);
+      toast("Something went wrong");
+    } finally {
+      setLoader(false);
+    }
+  };
 
   useEffect(() => {
     fetchProduct();
   }, []);
 
-const handleEdit = (rowData) => {
-  setEditMode(true);
-  setSelectedProduct(rowData);
-  setTitle(rowData.title);
-  setDes(rowData.des);
-  setPrice(rowData.price);
-  if (image) {
-  formData.append("image", image);
-  }
-  setVisible(true);
-};
+  const handleEdit = (rowData) => {
+    setEditMode(true);
+    setSelectedProduct(rowData);
+    setTitle(rowData.title);
+    setDes(rowData.des);
+    setPrice(rowData.price);
+    if (image) {
+      formData.append("image", image);
+    }
+    setVisible(true);
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -100,22 +96,22 @@ const handleEdit = (rowData) => {
   };
 
   const actionTemplate = (rowData) => {
-  return (
-    <div>
-      <Button 
-        label="Edit" 
-        onClick={() => handleEdit(rowData)} 
-        className="ed-btn" 
-      />
-      
-      <Button 
-        label="Delete" 
-        onClick={() => handleDelete(rowData._id)} 
-        className="ed-btn" 
-      />
-    </div>
-  );
-};
+    return (
+      <div>
+        <Button
+          label="Edit"
+          onClick={() => handleEdit(rowData)}
+          className="ed-btn"
+        />
+
+        <Button
+          label="Delete"
+          onClick={() => handleDelete(rowData._id)}
+          className="ed-btn"
+        />
+      </div>
+    );
+  };
 
   const resetForm = () => {
     setDes("");
@@ -124,7 +120,7 @@ const handleEdit = (rowData) => {
     setImage(null);
     setSelectedProduct(null);
     setEditMode(false);
-    setVisible(false)
+    setVisible(false);
   };
 
   const fetchProduct = async () => {
@@ -137,16 +133,38 @@ const handleEdit = (rowData) => {
   };
 
   const imageBodyTemplate = (rowData) => {
-  return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <img
-        src={rowData.image}
-        alt="product"
-        className="add-product-image"
-      />
-    </div>
-  );
-};
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <img src={rowData.image} alt="product" className="add-product-image" />
+      </div>
+    );
+  };
+
+const filteredProducts = product
+  .filter((item) => {
+    const searchText = search.toLowerCase();
+
+    return (
+      item.title.toLowerCase().includes(searchText) ||
+      item.des.toLowerCase().includes(searchText) ||
+      item.price.toString().includes(searchText)
+    );
+  })
+  .sort((a, b) => {
+    const searchText = search.toLowerCase();
+
+    const aMatch =
+      a.title.toLowerCase().startsWith(searchText) ||
+      a.des.toLowerCase().startsWith(searchText);
+
+    const bMatch =
+      b.title.toLowerCase().startsWith(searchText) ||
+      b.des.toLowerCase().startsWith(searchText);
+
+    if (aMatch && !bMatch) return -1;
+    if (!aMatch && bMatch) return 1;
+    return 0;
+  });
 
   return (
     <>
@@ -161,9 +179,19 @@ const handleEdit = (rowData) => {
           />
         </div>
 
+        <div className="search">
+          <input
+            type="text"
+            placeholder="Search product"
+            className="search-input"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
         <DataTable
           className="p-datatable-gridlines"
-          value={product}
+          value={filteredProducts}
           tableStyle={{ minWidth: "60rem", textAlign: "center" }}
         >
           <Column field="title" header="Name"></Column>
@@ -216,7 +244,7 @@ const handleEdit = (rowData) => {
               <button type="submit" className="add-btn">
                 {Loader
                   ? editMode
-                    ? "Update.."
+                    ? "Updating.."
                     : "Adding.."
                   : editMode
                     ? "Update Product"

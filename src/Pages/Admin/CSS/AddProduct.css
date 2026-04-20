@@ -1,10 +1,14 @@
 .header-button{
     height: 50px;
     width: 100%;
-    background-color: rgb(0, 183, 255);
+    background-color: rgb(59, 77, 108);
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.header-button h2 {
+    color: white;
 }
 
 .add-product-image {
@@ -15,16 +19,17 @@
 .ed-btn {
     height: 40px;
     width: 100px;
-    background-color:  rgb(0, 183, 255);
+    background-color:  #f0e9e9;
     border-radius: 10px;
     margin: 5px;
-    border: none;
+    border: 1px solid black;
+    color: black;
 }
 
 .add-form-btn {
  height: 40px;
  width: 150px;
- background-color: rgb(92, 193, 255);
+ background-color: rgb(255, 255, 255);
  border-radius: 10px;
  border: 1px solid;
  font-size: 15px;
@@ -47,10 +52,11 @@
 .ed-btn {
   height: 35px;
   width: 90px;
-  color: white;
+  color: black;
   margin: 5px;
   border: none;
   cursor: pointer;
+  border: 1px solid;
 }
 
 
@@ -93,4 +99,21 @@
 
 .dialog {
     width: 450px;
+}
+
+.search {
+    height: 100px;
+    width: 100%;
+    display: flex;align-items: center;
+    justify-content: center;
+    background-color: #1E293B;
+}
+
+.search input {
+    height: 45px;
+    width: 700px;
+    border: 1px solid rgb(91, 155, 207);
+
+    
+
 }

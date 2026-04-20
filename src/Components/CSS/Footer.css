@@ -33,9 +33,7 @@ body {
     /* background-color: white; */
 }
 
-.second-footer h3 {
- /* text-align: center; */
-}
+
 
 .second-footer ul {
     list-style: none;
@@ -54,4 +52,27 @@ body {
 .third-footer {
     height: 80%;
     width: 30%;
+}
+
+@media (max-width: 900px) {
+    .first-footer,
+    .second-footer,
+    .third-footer {
+        width: 45%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .first-footer,
+    .second-footer,
+    .third-footer {
+        width: 100%;
+    }
 }

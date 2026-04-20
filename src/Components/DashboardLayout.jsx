@@ -21,9 +21,6 @@ const DashboardLayout = ({children}) => {
     }
   }, [])
 
-
-
-
   const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
@@ -42,7 +39,7 @@ const DashboardLayout = ({children}) => {
           icon: "success",
         });
         localStorage.clear();
-        navigate("/login");
+        navigate("/");
       }
     });
   };
