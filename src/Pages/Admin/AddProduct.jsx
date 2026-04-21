@@ -11,6 +11,8 @@ import { Column } from "primereact/column";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
+  const API_URL = import.meta.env.VITE_API_URL
+  
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -49,13 +51,13 @@ const AddProduct = () => {
 
       if (editMode) {
         res = await axios.post(
-          `http://localhost:3000/api/update/${selectedProduct._id}`,
+          `${API_URL}/api/update/${selectedProduct._id}`,
           formData,
         );
 
         toast("Product Updated");
       } else {
-        res = await axios.post("http://localhost:3000/api/add", formData);
+        res = await axios.post(`${API_URL}/api/add`, formData);
         toast("Product Added");
       }
 
@@ -87,7 +89,7 @@ const AddProduct = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:3000/api/delete/${id}`);
+      const res = await axios.delete(`${API_URL}/api/delete/${id}`);
       fetchProduct();
       toast("Product Deleted");
     } catch (error) {
@@ -125,7 +127,7 @@ const AddProduct = () => {
 
   const fetchProduct = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/get-all");
+      const res = await axios.get(`${API_URL}/api/get-all`);
       setProduct(res.data.product);
     } catch (error) {
       console.log(error);

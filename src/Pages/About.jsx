@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../Components/Header'
 import Footer from '../Components/Footer'
+import './CSS/About.css'
 
 const About = () => {
   return (
@@ -8,7 +9,7 @@ const About = () => {
     
     <Header />
 
-      <div>About</div>
+      <h1>About me</h1>
 
     <Footer />
     

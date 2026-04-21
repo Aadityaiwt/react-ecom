@@ -1,11 +1,15 @@
-/* ================= GLOBAL ================= */
 body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* ================= PRODUCTS ================= */
+.head {
+  text-align: center;
+  color: #B3025A;
+  margin-top: 80px;
+}
+
 .product-container {
   display: flex;
   gap: 30px;
@@ -21,16 +25,15 @@ body {
 
 h2 {
   text-align: center;
-  color: #B3025A;
+  color: rgb(94, 234, 94);
 }
 
-/* ================= PRODUCT CARD ================= */
 .card-outer {
   width: 250px;
   padding: 15px;
   border-radius: 10px;
   text-align: center;
-  background-color: #B3025A;
+  background: linear-gradient(to right, #2ecc71, #da3da0);
   overflow: hidden;
   color: white;
 }
@@ -47,7 +50,7 @@ h2 {
   width: 100px;
   border-radius: 10px;
   border: none;
-  background-color: rgb(94, 234, 94);
+  background: linear-gradient(to right, #2ecc71, #da3da0);
   margin: 5px;
   font-size: 14px;
   font-weight: 600;
@@ -60,7 +63,6 @@ h2 {
   color: white;
 }
 
-/* ================= BUY MODAL ================= */
 
 .buy-outer {
   position: fixed;
@@ -78,7 +80,6 @@ h2 {
   z-index: 9999;
 }
 
-/* Modal box */
 .buy-inner {
   width: 75%;
   max-width: 850px;
@@ -88,27 +89,23 @@ h2 {
   overflow: hidden;
 }
 
-/* LEFT */
 .buy-left {
   width: 60%;
   padding: 25px;
   background: #B3025A;
 }
 
-/* FORM */
 .buy-form {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* FLEX ROW */
 .flex {
   display: flex;
   gap: 10px;
 }
 
-/* INPUT */
 .buy-form input,
 .buy-form textarea {
   width: 100%;
@@ -119,13 +116,11 @@ h2 {
   font-size: 14px;
 }
 
-/* TEXTAREA */
 .buy-form textarea {
   height: 70px;
   resize: none;
 }
 
-/* BUTTON */
 .buy-left button {
   margin-top: 10px;
   height: 45px;
@@ -136,13 +131,11 @@ h2 {
   cursor: pointer;
 }
 
-/* RADIO */
 .radio-group {
   display: flex;
   color: white;
 }
 
-/* RIGHT */
 .buy-right {
   width: 40%;
   display: flex;
@@ -150,7 +143,6 @@ h2 {
   background: #111;
 }
 
-/* IMAGE */
 .image {
   height: 60%;
   background: #eee;
@@ -162,14 +154,12 @@ h2 {
   object-fit: cover;
 }
 
-/* DESCRIPTION */
 .description {
   height: 40%;
   padding: 15px;
   color: white;
 }
 
-/* CLOSE BUTTON */
 .buy-right button {
   margin: 10px;
   padding: 8px;
@@ -178,7 +168,6 @@ h2 {
   cursor: pointer;
 }
 
-/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .buy-inner {
     flex-direction: column;

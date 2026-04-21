@@ -44,7 +44,8 @@ const Header = ({ cart }) => {
           <div className="cart">
             <FaCartPlus />
             <span className="cart-count">
-              {cart.reduce((total, item) => total + item.quantity, 0)}
+              {cart?.reduce((total, item) => total + (item.quantity || 0), 0) ||
+                0}
             </span>
           </div>
         </Link>

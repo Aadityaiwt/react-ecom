@@ -1,39 +1,45 @@
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .nav {
-    height: 70px;
-    width: 100%;
-    background-color: rgb(255, 255, 255);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  height: 70px;
+  width: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav .logo img {
-    height: 100px;
-    width: 150px;
+  height: 90px;
+  width: 150px;
 }
 
 .nav ul {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
 }
 
 .nav ul li {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .nav ul li a {
-    color: #B3025A;
-    text-decoration: none;
+  color: #b3025a;
+  text-decoration: none;
 }
 
 a {
@@ -49,7 +55,7 @@ a::after {
   bottom: -2px;
   width: 0%;
   height: 2px;
-  background: #B3025A;
+  background: #b3025a;
   transition: width 0.3s ease;
 }
 
@@ -58,18 +64,18 @@ a:hover::after {
 }
 
 .login {
-    height: 40px;
-    width: 100px;
-    background-color: #27ab1e;
-    margin: 10px;
-    border: 2px solid #B3025A;
-    border-radius: 10px;
+  height: 40px;
+  width: 100px;
+  background: linear-gradient(to right, #2ecc71, #da3da0);
+  margin: 10px;
+  border: 2px solid #b3025a;
+  border-radius: 10px;
 }
 
 .login a {
-    color: #E20272;
-    font-size: 18px;
-    text-decoration: none;
+  color: #e20272;
+  font-size: 18px;
+  text-decoration: none;
 }
 
 .cart {
@@ -82,7 +88,7 @@ a:hover::after {
   position: absolute;
   top: -8px;
   left: 25px;
-  background-color: #E20272;
+  background-color: #e20272;
   color: white;
   font-size: 12px;
   padding: 2px 6px;

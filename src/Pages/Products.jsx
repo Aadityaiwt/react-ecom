@@ -14,7 +14,7 @@ const Products = () => {
   });
   const getProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/get-all");
+      const res = await axios.get(`${API_URL}/api/get-all`);
       setProduct(res.data.product);
     } catch (error) {
       console.log(error);
@@ -56,7 +56,7 @@ const addToCart = (item) => {
       <Header cart={cart}/>
 
       <div>
-        <h2>Products</h2>
+        <h2 className="head">Our Products</h2>
         <div className="product-container">
           {product.map((item, i) => (
             <div className="card-outer" key={item._id}>
@@ -78,7 +78,7 @@ const addToCart = (item) => {
         </div>
       </div>
 
-      {showBuy && (
+      {/* {showBuy && (
         <div div className="buy-inner">
           <div className="buy-inner">
             <div className="buy-left">
@@ -130,7 +130,7 @@ const addToCart = (item) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       <Footer />
     </>
