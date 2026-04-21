@@ -78,60 +78,6 @@ const addToCart = (item) => {
         </div>
       </div>
 
-      {/* {showBuy && (
-        <div div className="buy-inner">
-          <div className="buy-inner">
-            <div className="buy-left">
-          <button className="close" onClick={() => setShowBuy(false)}><IoMdClose /></button>
-              <form className="buy-form" onSubmit={handleSubmit}>
-                <div className="flex">
-                  <input type="text" placeholder="Full Name" />
-                  <input type="number" placeholder="Phone" />
-                </div>
-
-                <div className="flex">
-                  <input type="email" placeholder="Email" />
-                  <input type="text" placeholder="City" />
-                </div>
-
-                <textarea name="address" placeholder="Address"></textarea>
-
-                <div className="flex">
-                  <input type="text" placeholder="State" />
-                  <input type="number" placeholder="pincode" />
-                </div>
-                <input type="date" placeholder="Date" />
-
-                <div className="radio-group">
-                  <input type="radio" name="payment" value="cod" />
-                  Cash on Delivery
-                  <input type="radio" name="payment" value="online" />
-                  Online Payment
-                </div>
-
-                <button type="Submit">Submit</button>
-              </form>
-            </div>
-            <div className="buy-right">
-              <div className="image">
-                <img
-                  src={selectedProduct?.image || "/no-image.png"}
-                  alt={selectedProduct?.title}
-                />
-              </div>
-
-              <div className="description">
-                <h2>{selectedProduct?.title}</h2>
-                <p>{selectedProduct?.des}</p>
-                <p>?{selectedProduct?.price}</p>
-              </div>
-
-              
-            </div>
-          </div>
-        </div>
-      )} */}
-
       <Footer />
     </>
   );

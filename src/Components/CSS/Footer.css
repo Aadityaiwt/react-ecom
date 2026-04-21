@@ -3,7 +3,6 @@ body {
 }
 
 .footer {
-    border-top: 1 ps solid red;
     height: 300px;
     width: 100%;
     background: linear-gradient(to right, #2ecc71, #da3da0);
@@ -11,6 +10,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin-top: 80px;
 }
 
 .first-footer {
