@@ -1,78 +1,73 @@
-body {
-    font-family: sans-serif;
-}
-
 .footer {
-    height: 300px;
-    width: 100%;
-    background: linear-gradient(to right, #2ecc71, #da3da0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 80px;
+  width: 100%;
+  background: linear-gradient(135deg, #da3da0, #2ecc71);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 40px;
+  gap: 30px;
+  flex-wrap: wrap;
+  color: white;
+  margin-top: 80px;
 }
 
-.first-footer {
-    height: 80%;
-    width: 30%;
-    /* background-color: white; */
+.first-footer,
+.second-footer,
+.third-footer {
+  flex: 1;
+  min-width: 250px;
 }
 
 .footer-logo img {
-    height: 50px;
+  height: 50px;
 }
 
-.footer-logo p {
-    color: white;
-}
-
-.second-footer {
-    height: 80%;
-    width: 30%;
-    /* background-color: white; */
-}
-
-
-
+/* links */
 .second-footer ul {
-    list-style: none;
+  list-style: none;
+  padding: 0;
 }
 
 .second-footer ul li {
-    line-height: 25px;
-    cursor: pointer;
-    color: white;
+  margin: 8px 0;
 }
 
-.second-footer ul li:hover {
-    color: blue;
+.second-footer a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
 }
 
-.third-footer {
-    height: 80%;
-    width: 30%;
+.second-footer a:hover {
+  color: black;
 }
 
+/* map fix */
+.map {
+  width: 100%;
+  height: 200px;
+  border: none;
+  border-radius: 10px;
+}
+
+/* TABLET */
 @media (max-width: 900px) {
-    .first-footer,
-    .second-footer,
-    .third-footer {
-        width: 45%;
-        margin-bottom: 20px;
-    }
+  .footer {
+    padding: 25px;
+  }
 }
 
+/* MOBILE */
 @media (max-width: 600px) {
-    .footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
 
-    .first-footer,
-    .second-footer,
-    .third-footer {
-        width: 100%;
-    }
+  .first-footer,
+  .second-footer,
+  .third-footer {
+    width: 100%;
+  }
 }

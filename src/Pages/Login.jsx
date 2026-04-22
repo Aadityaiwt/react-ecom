@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
-import '../Pages/CSS/Login.css'
+import './CSS/Login.css'
 import axios from 'axios'
 import { useNavigate , NavLink, Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
+import Header from '../Components/Header'
+import Footer from '../Components/Footer'
 
 const Login = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -13,7 +17,7 @@ const Login = () => {
 
   const handleLogin = async() =>{
     try {
-      const res =  await axios.post('${API_URL}/api/login', {
+      const res =  await axios.post(`${API_URL}/api/login`, {
       email, password
     })
 
@@ -47,6 +51,7 @@ const Login = () => {
   }
   return (
     <>
+    <Header />
     
     <div className="outer">
       <h1 className="margin">Log In</h1>
@@ -67,13 +72,13 @@ const Login = () => {
         <span className="margin">Forgot password?</span>
       </div>
       <button className="btn-icon margin" id="btn" onClick={handleLogin} disabled={loading}>{loading ? "Loading.." : "Login"}</button>
-      <p className="margin"><Link href="">Can't Access Yout Account?</Link></p>
+      <p className="margin"><Link to="">Can't Access Your Account?</Link></p>
       <p>
         Don't have an account?
         <Link to='/sign'> Sign Up</Link>
       </p>
     </div>
-    
+    <Footer />
     </>
   )
 }

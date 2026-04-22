@@ -1,0 +1,61 @@
+/* ?? Container */
+.dashboard-container {
+  padding: 20px;
+}
+
+/* ?? Title */
+.dashboard-title {
+  font-size: 26px;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+/* ?? Cards Layout */
+.dashboard-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* ?? Card */
+.card {
+  flex: 1;
+  min-width: 250px;
+  padding: 25px;
+  border-radius: 15px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* ?? Product Card */
+.products {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+/* ?? Order Card */
+.orders {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+/* ?? Contact Card */
+.contacts {
+  background: linear-gradient(135deg, #e67e22, #d35400);
+}
+
+/* ?? Number */
+.card p {
+  font-size: 35px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* ?? Title */
+.card h3 {
+  font-size: 18px;
+}

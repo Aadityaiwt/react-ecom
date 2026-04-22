@@ -8,34 +8,49 @@ const Services = () => {
     <>
       <Header />
 
-      <div className="services-container">
-        <h1 className="services-title">Our Services</h1>
+<div className="services-container">
+  <h1 className="services-title">Our Flower Services</h1>
 
-          <p>A beautiful collection of vibrant flowers showcasing nature's colors, fragrance, elegance, and freshness, perfect for decoration, gifting, and joyful moments.</p>
-        <div className="services-grid">
+  <p>
+    We provide fresh and beautiful flowers for all occasions like weddings,
+    birthdays, decorations, gifting and special moments. Our flowers are
+    hand-picked and delivered fresh with love.
+  </p>
 
-          <div className="service-card">
-            <h2>Web Development</h2>
-            <p>We build modern and responsive websites using latest technologies.</p>
-          </div>
+  <div className="services-grid">
 
-          <div className="service-card">
-            <h2>App Development</h2>
-            <p>High-performance mobile applications for Android and iOS.</p>
-          </div>
+    <div className="service-card">
+      <h2>Fresh Flower Delivery</h2>
+      <p>Get fresh roses, lilies, and seasonal flowers delivered at your doorstep.</p>
+    </div>
 
-          <div className="service-card">
-            <h2>UI/UX Design</h2>
-            <p>Clean and user-friendly designs that improve user experience.</p>
-          </div>
+    <div className="service-card">
+      <h2>Wedding Decoration</h2>
+      <p>Beautiful flower decoration for weddings, stage, and mandap setup.</p>
+    </div>
 
-          <div className="service-card">
-            <h2>SEO Optimization</h2>
-            <p>Improve your website ranking and visibility on search engines.</p>
-          </div>
+    <div className="service-card">
+      <h2>Gift Bouquets</h2>
+      <p>Customized flower bouquets for birthdays, anniversaries and surprises.</p>
+    </div>
 
-        </div>
-      </div>
+    <div className="service-card">
+      <h2>Event Decoration</h2>
+      <p>Corporate events, parties and functions decoration with premium flowers.</p>
+    </div>
+
+    <div className="service-card">
+      <h2>Custom Orders</h2>
+      <p>We design flowers based on your choice, color theme and budget.</p>
+    </div>
+
+    <div className="service-card">
+      <h2>Same Day Delivery</h2>
+      <p>Fast and reliable same-day flower delivery service in your city.</p>
+    </div>
+
+  </div>
+</div>
 
       <Footer />
     </>

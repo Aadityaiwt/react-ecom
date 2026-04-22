@@ -4,8 +4,10 @@ import Footer from "../Components/Footer";
 import "./CSS/Products.css";
 import axios from "axios";
 import { IoMdClose } from "react-icons/io";
+import { toast } from "react-toastify";
 
 const Products = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [showBuy, setShowBuy] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [product, setProduct] = useState([]);
@@ -47,7 +49,7 @@ const addToCart = (item) => {
 
   const handleSubmit = (e) => {
   e.preventDefault();
-  alert("Order Placed!");
+  toast.success("Order Placed!");
   setShowBuy(false);
 };
 

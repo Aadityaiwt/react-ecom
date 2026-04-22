@@ -11,6 +11,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import AddProduct from './Pages/Admin/AddProduct'
 import Services from './Pages/Services'
 import Cart from './Pages/Cart'
+import Orders from './Pages/Admin/Orders'
+import AdminContact from './Pages/Admin/AdminContact'
+import AdminProfile from './Pages/Admin/AdminProfile'
+import AdminDashboard from './Pages/Admin/AdminDashboard'
 
 const App = () => {
   return (
@@ -34,6 +38,10 @@ const App = () => {
             {/* Dashboard */}
             <Route path='/dashboardLayout' element={<DashboardLayout />}/>
             <Route path='/add-product' element={<AddProduct />}/>
+            <Route path='/orders' element={<Orders />}/>
+            <Route path='/admincontact' element={<AdminContact />}/>
+            <Route path='/adminprofile' element={<AdminProfile />}/>
+            <Route path='/admindashboard' element={<AdminDashboard />}/>
         </Routes>
          <ToastContainer />
      </BrowserRouter>

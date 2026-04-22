@@ -1,119 +1,145 @@
-.header-button{
-    height: 50px;
-    width: 100%;
-    background-color: rgb(59, 77, 108);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+/* HEADER */
+.header-button {
+  height: 60px;
+  width: 100%;
+  background: linear-gradient(90deg, #2ecc71, #da3da0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
 }
 
 .header-button h2 {
-    color: white;
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
 }
 
-.add-product-image {
-    height: 80px;
-    width: 80px;
-}
-
-.ed-btn {
-    height: 40px;
-    width: 100px;
-    background-color:  #f0e9e9;
-    border-radius: 10px;
-    margin: 5px;
-    border: 1px solid black;
-    color: black;
-}
-
+/* ADD BUTTON */
 .add-form-btn {
- height: 40px;
- width: 150px;
- background-color: rgb(255, 255, 255);
- border-radius: 10px;
- border: 1px solid;
- font-size: 15px;
- color: black;
-}
-
-.p-datatable .p-column-header-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.p-datatable .p-datatable-tbody td,tr {
-  text-align: center !important;
-  border: 1px solid #000;
-  padding: 10px;
-}
-
-
-.ed-btn {
-  height: 35px;
-  width: 90px;
-  color: black;
-  margin: 5px;
-  border: none;
-  cursor: pointer;
-  border: 1px solid;
-}
-
-
-.m-0 {
-    height: 400px;
-    width: 500px;
-    background-color: brown;
-    display: flex;
-    align-items: center;
-}
-
-.m-0 input {
-    height: 45px;
-    width: 300px;
-    margin: 15px;
-    border-radius: 10px;
-}
-
-.p-dialog .p-dialog-content {
-    
-    padding: 20px;
-    overflow: hidden;
-}
-
-.p-dialog {
+  height: 42px;
+  padding: 0 18px;
+  background: white;
   border-radius: 10px;
-  padding: 20px;
-  color: White;
-  font-size: 18px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2ecc71;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
-.add-btn {
-    height: 45px;
-    width: 150px;
-    border-radius: 10px;
-    background-color: #3b82f6;
-    color: white;
-    font-size: 15px;
+.add-form-btn:hover {
+  transform: scale(1.05);
+  background: #f5f5f5;
 }
 
-.dialog {
-    width: 450px;
-}
-
+/* SEARCH SECTION */
 .search {
-    height: 100px;
-    width: 100%;
-    display: flex;align-items: center;
-    justify-content: center;
-    background-color: #1E293B;
+  height: 90px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
 }
 
 .search input {
-    height: 45px;
-    width: 700px;
-    border: 1px solid rgb(91, 155, 207);
+  height: 45px;
+  width: 60%;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 0 15px;
+  outline: none;
+  transition: 0.3s;
+}
 
-    
+.search input:focus {
+  border-color: #2ecc71;
+  box-shadow: 0 0 5px rgba(46, 204, 113, 0.3);
+}
 
+/* TABLE IMAGE */
+.add-product-image {
+  height: 70px;
+  width: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+/* ACTION BUTTONS */
+.ed-btn {
+  height: 35px;
+  width: 85px;
+  border-radius: 8px;
+  border: none;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.ed-btn:hover {
+  transform: scale(1.05);
+}
+
+.ed-btn:first-child {
+  background: #2ecc71;
+  color: white;
+}
+
+.ed-btn:last-child {
+  background: #ff4d4d;
+  color: white;
+}
+
+/* DIALOG */
+.dialog {
+  border-radius: 15px;
+}
+
+/* FORM BOX */
+.m-0 {
+  width: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.m-0 input {
+  height: 45px;
+  width: 100%;
+  max-width: 350px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.m-0 input:focus {
+  border-color: #da3da0;
+  box-shadow: 0 0 5px rgba(218, 61, 160, 0.3);
+}
+
+/* ADD BUTTON INSIDE FORM */
+.add-btn {
+  height: 45px;
+  width: 160px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #2ecc71, #da3da0);
+  color: white;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  transform: scale(1.05);
 }

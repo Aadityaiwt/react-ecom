@@ -7,48 +7,45 @@ body {
 .nav {
   height: 70px;
   width: 100%;
-  color: white;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: space-around;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   z-index: 1000;
-
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.nav .logo img {
-  height: 90px;
-  width: 150px;
+.logo img {
+  height: 70px;
+  width: 120px;
 }
 
-.nav ul {
+.ul-list {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: 20px;
+}
+
+.ul-list ul {
+  display: flex;
   gap: 40px;
   list-style: none;
 }
 
-.nav ul li {
-  font-size: 20px;
-}
-
-.nav ul li a {
+.ul-list ul li a {
   color: #b3025a;
   text-decoration: none;
+  font-size: 18px;
 }
 
 a {
   position: relative;
   text-decoration: none;
-  color: black;
 }
 
-a::after {
+Link::after {
   content: "";
   position: absolute;
   left: 0;
@@ -56,42 +53,100 @@ a::after {
   width: 0%;
   height: 2px;
   background: #b3025a;
-  transition: width 0.3s ease;
+  transition: 0.3s;
 }
 
 a:hover::after {
   width: 100%;
 }
 
-.login {
-  height: 40px;
-  width: 100px;
-  background: linear-gradient(to right, #2ecc71, #da3da0);
-  margin: 10px;
-  border: 2px solid #b3025a;
-  border-radius: 10px;
+.btn {
+  display: flex;
 }
 
-.login a {
-  color: #e20272;
-  font-size: 18px;
+.login {
+  padding: 8px 16px;
+  background: linear-gradient(to right, #2ecc71, #da3da0);
+  margin: 5px;
+  border-radius: 10px;
+  color: white;
   text-decoration: none;
+  font-size: 14px;
 }
 
 .cart {
   position: relative;
   font-size: 24px;
   cursor: pointer;
+  color: #2ecc71;
 }
 
 .cart-count {
   position: absolute;
   top: -8px;
-  left: 25px;
+  left: 20px;
   background-color: #e20272;
   color: white;
   font-size: 12px;
   padding: 2px 6px;
   border-radius: 50%;
-  font-weight: bold;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+  .nav {
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .ul-list {
+    position: absolute;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    background: white;
+    transition: 0.3s;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ul-list.active {
+    left: 0;
+  }
+
+  .ul-list ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .btn {
+    display: none;
+  }
+
+  .mobile-btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .login {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #2ecc71, #da3da0);
+    color: white;
+  }
 }

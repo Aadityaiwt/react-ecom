@@ -12,15 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const API_URL = import.meta.env.VITE_API_URL
-  
   const navigate = useNavigate();
 
+useEffect(() => {
   const token = localStorage.getItem("token");
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-  }, []);
+  if (!token) navigate("/login");
+}, []);
 
   const [title, setTitle] = useState("");
   const [des, setDes] = useState("");
@@ -65,7 +62,7 @@ const AddProduct = () => {
       resetForm();
     } catch (error) {
       console.log(error);
-      toast("Something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setLoader(false);
     }
@@ -81,9 +78,6 @@ const AddProduct = () => {
     setTitle(rowData.title);
     setDes(rowData.des);
     setPrice(rowData.price);
-    if (image) {
-      formData.append("image", image);
-    }
     setVisible(true);
   };
 

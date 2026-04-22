@@ -46,11 +46,10 @@ const DashboardLayout = ({children}) => {
 
   return (
     <div className="container">
-      {/* Sidebar */}
       <div className={open ? "sidebar open" : "sidebar"}>
         <h2 className="logo">Admin</h2>
 
-        <NavLink to="/dashboard" className="navlinks">
+        <NavLink to="/admindashboard" className="navlinks">
           <MdDashboard />
           <span>Dashboard</span>
         </NavLink>
@@ -65,12 +64,12 @@ const DashboardLayout = ({children}) => {
           <span>Orders</span>
         </NavLink>
 
-        <NavLink to="/contact" className="navlinks">
+        <NavLink to="/admincontact" className="navlinks">
           <IoMdContact />
           <span>Contact</span>
         </NavLink>
 
-        <NavLink to="/profile" className="navlinks">
+        <NavLink to="/adminprofile" className="navlinks">
           <CgProfile />
           <span>Profile</span>
         </NavLink>
@@ -81,9 +80,7 @@ const DashboardLayout = ({children}) => {
         </button>
       </div>
 
-      {/* Main */}
       <div className="main">
-        {/* Header */}
         <div className="header">
           <button onClick={() => setOpen(!open)}>
             <TiThMenu />{" "}
@@ -91,7 +88,6 @@ const DashboardLayout = ({children}) => {
           <h3>Dashboard</h3>
         </div>
 
-        {/* Content */}
         <div className="content">
           {children}
         </div>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Cart = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [cart, setCart] = useState([]);
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
@@ -19,43 +20,50 @@ const Cart = () => {
   const getTotal = () => {
     return cart.reduce(
       (total, item) => total + item.price * (item.quantity || 1),
+      0,
     );
   };
 
   const validateForm = () => {
+    // Name ? min 3 characters, no numbers
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return "Enter valid Email (example@gmail.com)";
+    }
 
-  // Name ? min 3 characters, no numbers
-  if (!name || name.length < 3 || /\d/.test(name)) {
-    return "Enter valid name (min 3 letters, no numbers)";
-  }
+    // Email ? @ and gmail.com end
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return "Enter valid Email (example@gmail.com)";
+    }
 
-  // Email ? @ and gmail.com end
-  if (!email.includes("@") || !email.endsWith("@gmail.com")) {
-    return "Enter valid Gmail (example@gmail.com)";
-  }
+    // Contact ? 10 digit, start 6-9
+    if (!/^[6-9]\d{9}$/.test(contact)) {
+      return "Enter valid 10 digit contact number";
+    }
 
-  // Contact ? 10 digit, start 6-9
-  if (!/^[6-9]\d{9}$/.test(contact)) {
-    return "Enter valid 10 digit contact number";
-  }
+    // Pincode ? exactly 6 digit
+    if (!/^\d{6}$/.test(pincode)) {
+      return "Enter valid 6 digit pincode";
+    }
 
-  // Pincode ? exactly 6 digit
-  if (!/^\d{6}$/.test(pincode)) {
-    return "Enter valid 6 digit pincode";
-  }
+    // Address ? minimum length check
+    if (!address || address.length < 10) {
+      return "Enter full address (min 10 characters)";
+    }
 
-  // Address ? minimum length check
-  if (!address || address.length < 10) {
-    return "Enter valid address (min 10 characters)";
-  }
-
-  return null; // all good
-};
+    return null; // all good
+  };
 
   const handlePlace = async () => {
-    if (!name || !email || !contact || !address || !pincode) {
-      return toast.error("Please fill all fields");
+    if (cart.length === 0) {
+      return toast.error("Cart is empty");
     }
+
+    const error = validateForm(); // ?? proper validation
+
+    if (error) {
+      return toast.error(error);
+    }
+
     try {
       const res = await axios.post(`${API_URL}/api/order`, {
         cart,
@@ -66,7 +74,6 @@ const Cart = () => {
         pincode,
       });
 
-      console.log(res);
       toast.success("Order Placed Successfully");
 
       localStorage.removeItem("cart");
@@ -77,79 +84,94 @@ const Cart = () => {
       setContact("");
       setPincode("");
     } catch (error) {
-      console.log("ERROR:", error.response || error.message);
-      toast.error("Order Failed");
+      toast.error(error.response?.data?.message || "Order Failed");
     }
   };
 
   return (
     <>
-      <div className="cart-container">
-        <h2 className="cart-title">My Cart</h2>
-        {cart.length === 0 ? (
-          <h3 className="empty-cart">Cart is empty</h3>
-        ) : (
-          cart.map((item) => (
-            <div className="cart-item" key={item._id}>
-              <div className="cart-details">
-                <h3 className="cart-title-text">Product Name : {item.title}</h3>
-                <h3 className="cart-description">Description : {item.des}</h3>
-                <h3 className="cart-description">
-                  Net Quantity : {item.quantity}
-                </h3>
-                <h3 className="cart-price">Products Price : {item.price}rs</h3>
+<div className="cart-container">
+  <h2 className="cart-title">My Cart</h2>
+
+  {cart.length === 0 ? (
+    <h3 className="empty-cart">Your cart is empty</h3>
+  ) : (
+    <>
+      <div className="cart-grid">
+        {cart.map((item) => (
+          <div className="cart-card" key={item._id}>
+            <img src={item.image} alt="" />
+
+            <div className="cart-info">
+              <div className="cart-title">
+                <h3>Title</h3>
+                <h3>{item.title}</h3>
               </div>
-              <img className="cart-image" src={item.image} />
+              <p>{item.des}</p>
+
+              <div className="cart-meta">
+                <span>Qty: {item.quantity}</span>
+                <span>{item.price}rs</span>
+              </div>
             </div>
-          ))
-        )}
-        <h1>Total Price:- {getTotal()}</h1>
-        <label>Enter Your Name : </label>
-        <input
-          type="text"
-          placeholder="Enter Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />{" "}
-        <br /> <br />
-        <label>Enter Your Email : </label>
-        <input
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />{" "}
-        <br /> <br />
-        <label>Contact : </label>
-        <input
-          type="text"
-          maxLength="10"
-          placeholder="Contact"
-          value={contact}
-          onChange={(e) => setContact(e.target.value)}
-        />{" "}
-        <br /> <br />
-        <label>Enter Your Address : </label>
-        <input
-          type="text"
-          maxLength="6"
-          placeholder="Pincode"
-          value={pincode}
-          onChange={(e) => setPincode(e.target.value)}
-        />{" "}
-        <br /> <br />
-        <label>Pincode : </label>
-        <input
-          type="number"
-          placeholder="Pincode"
-          value={pincode}
-          onChange={(e) => setPincode(e.target.value)}
-        />{" "}
-        <br /> <br />
-        <button onClick={handlePlace} disabled={cart.length === 0}>
+          </div>
+        ))}
+      </div>
+
+      {/* Summary Section */}
+      <div className="cart-summary">
+        <h2>Total: {getTotal()}rs</h2>
+      </div>
+
+      {/* Order Form Section */}
+      <div className="checkout-form">
+        <h3>Shipping Details</h3>
+
+        <div className="form-grid">
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <input
+            type="text"
+            placeholder="Contact Number"
+            maxLength="10"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+          />
+
+          <input
+            type="text"
+            placeholder="Pincode"
+            maxLength="6"
+            value={pincode}
+            onChange={(e) => setPincode(e.target.value)}
+          />
+        </div>
+
+        <textarea
+          placeholder="Full Address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        ></textarea>
+
+        <button onClick={handlePlace}>
           Place Order
         </button>
       </div>
+    </>
+  )}
+</div>
     </>
   );
 };

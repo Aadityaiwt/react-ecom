@@ -1,0 +1,131 @@
+/* ?? Page Layout */
+.header-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-button h2 {
+  font-size: 24px;
+  color: #2c3e50;
+}
+
+/* ?? Search Bar */
+.search {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px 15px;
+  width: 260px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s;
+}
+
+.search-input:focus {
+  border-color: #2ecc71;
+  box-shadow: 0 0 5px rgba(46, 204, 113, 0.4);
+}
+
+/* ?? DataTable Styling */
+.p-datatable {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.p-datatable .p-datatable-header {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background-color: #2ecc71;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  transition: 0.2s;
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+  background-color: #f1fdf6;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* ?? Buttons */
+.ed-btn {
+  margin: 3px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* View Button */
+.ed-btn:first-child {
+  background-color: #3498db;
+  color: white;
+}
+
+.ed-btn:first-child:hover {
+  background-color: #2980b9;
+}
+
+/* Delete Button */
+.ed-btn:last-child {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.ed-btn:last-child:hover {
+  background-color: #c0392b;
+}
+
+/* ?? Dialog */
+.p-dialog {
+  border-radius: 10px;
+}
+
+.p-dialog .p-dialog-header {
+  background-color: #2ecc71;
+  color: white;
+  font-weight: bold;
+}
+
+.p-dialog .p-dialog-content {
+  padding: 20px;
+  font-size: 14px;
+}
+
+.p-dialog p {
+  margin: 10px 0;
+}
+
+/* ?? Responsive */
+@media (max-width: 768px) {
+  .search {
+    justify-content: center;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .p-datatable {
+    font-size: 12px;
+  }
+}
