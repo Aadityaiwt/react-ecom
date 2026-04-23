@@ -1,5 +1,4 @@
-.outer {
-  min-height: 500px;
+.login-outer {
   width: 450px;
   background: linear-gradient(135deg, #2ecc71, #da3da0);
   display: flex;
@@ -8,40 +7,46 @@
   gap: 15px;
   border-radius: 18px;
   margin: 100px auto;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-h1 {
-  font-size: 34px;
-  color: #2ecc71;
+.login-outer h1 {
+  font-size: 32px;
+  color: #176d3b;
 }
 
-.btn-icon {
+.btn-icon img {
   height: 50px;
-  width: 100%;
-  max-width: 380px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  background: #f4f4f4;
-}
-
-/* LOGIN BUTTON */
-#btn {
-  background: linear-gradient(90deg, #2ecc71, #da3da0);
-  color: white;
-  font-size: 18px;
+  width: 50px;
 }
 
 /* INPUT */
-input {
+.login-outer input {
   height: 50px;
-  width: 100%;
-  max-width: 380px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 0 12px;
   font-size: 16px;
   outline: none;
+
+}
+
+/* FORM */
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #176d3b;
+}
+
+.form span {
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #0e4123;
 }
 
 /* DIVIDER */
@@ -56,35 +61,43 @@ input {
 .divider::after {
   content: "";
   flex: 1;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+
+.login-btn {
+  height: 50px;
+  width: 150px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .divider span {
   margin: 0 10px;
   font-weight: bold;
-  color: #666;
+  color: white;
 }
 
 /* TEXT */
-p {
+.login-outer p {
   text-align: center;
-  font-size: 14px;
+  font-size: 18px;
+  color: white;
 }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  .outer {
+  .login-outer {
     width: 90%;
   }
 }
 
 @media (max-width: 480px) {
-  .outer {
+  .login-outer {
     width: 95%;
-    padding: 18px;
+    padding: 20px;
   }
 
-  h1 {
-    font-size: 28px;
+  .login-outer h1 {
+    font-size: 26px;
   }
 }

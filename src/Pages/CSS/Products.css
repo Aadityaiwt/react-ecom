@@ -38,6 +38,51 @@ h2 {
   color: white;
 }
 
+.cart-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100px;
+  margin: 10px auto;
+  background: linear-gradient(to right, #2ecc71, #da3da0);
+  color: white;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.cart-btn span {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 4px 10px;
+  transition: 0.2s;
+  border-radius: 10px;
+}
+
+/* + button */
+.cart-btn .increase {
+  background: #22c55e;
+}
+
+.cart-btn .increase:hover {
+  background: #14853d;
+}
+
+/* - button */
+.cart-btn .decrease {
+  background: #da3da0;
+}
+
+.cart-btn .decrease:hover {
+  background: #dc26d3;
+}
+
+/* cart icon */
+.cart-icon {
+  font-size: 15px;
+  color: #ffffff;
+}
+
 .card-outer img {
   height: 180px;
   width: 100%;
@@ -46,7 +91,7 @@ h2 {
 }
 
 .card-outer button {
-  height: 40px;
+  height: 50px;
   width: 100px;
   border-radius: 10px;
   border: none;

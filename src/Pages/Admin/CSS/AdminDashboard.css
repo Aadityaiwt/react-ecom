@@ -7,7 +7,7 @@
 .dashboard-title {
   font-size: 26px;
   margin-bottom: 30px;
-  color: #2c3e50;
+  color: #fff;
 }
 
 /* ?? Cards Layout */
@@ -19,13 +19,13 @@
 
 /* ?? Card */
 .card {
-  flex: 1;
+  height: 200px;
   min-width: 250px;
   padding: 25px;
   border-radius: 15px;
   color: white;
   text-align: center;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
 }
 
@@ -35,17 +35,26 @@
 
 /* ?? Product Card */
 .products {
-  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: linear-gradient(135deg, #2ecc71, #104c29);
 }
 
 /* ?? Order Card */
 .orders {
-  background: linear-gradient(135deg, #3498db, #2980b9);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: linear-gradient(135deg, #3498db, #0f354e);
 }
 
 /* ?? Contact Card */
 .contacts {
-  background: linear-gradient(135deg, #e67e22, #d35400);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: linear-gradient(135deg, #e67e22, #6d2f06);
 }
 
 /* ?? Number */

@@ -1,11 +1,42 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import './CSS/Sign.css'
-
+import "./CSS/Sign.css";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Sign = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignup = async () => {
+    try {
+      const res = await axios.post(`${API_URL}/api/create-admin`, {
+        email,
+        password,
+      });
+
+      if (res.data.success) {
+        toast.success("Registered successfully");
+        navigate("/login");
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      toast.error("Error in signup");
+      console.log(error);
+    }
+  };
+
   return (
     <>
+      <Header />
       <div className="outer">
         <h1 className="margin">Register</h1>
 
@@ -17,34 +48,41 @@ const Sign = () => {
           <span>OR</span>
         </div>
 
-        <div className="form">
-          <label htmlFor="email" className="margin">
-            Email address
-          </label>
+        <div className="register-form">
+          <label htmlFor="email">Email</label>
           <br />
-          <input type="text" id="email" className="margin" />
+          <input
+            type="text"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <br />
 
-          <label htmlFor="password" className="margin">
-            Password
-          </label>
+          <label htmlFor="password">Password</label>
           <br />
-          <input type="password" id="password" className="margin" />
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
 
-        <button className="btn-icon margin" id="btn">
+        <button className="regiter-btn" onClick={handleSignup}>
           Register
         </button>
 
-        <p className="margin">
+        <p>
           Already have an account? <Link to="/login">Log in</Link>
         </p>
 
-        <p className="margin" style={{ width: "80%" }}>
-          By continuing, you accept our{" "}
-          <Link>Terms of Service</Link> and acknowledgement.
+        <p>
+          By continuing, you accept our <Link>Terms of Service</Link> and
+          acknowledgement.
         </p>
       </div>
+      <Footer />
     </>
   );
 };

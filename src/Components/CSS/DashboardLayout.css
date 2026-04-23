@@ -7,7 +7,6 @@
 
 .container {
     display: flex;
-    /* background-color: #fff; */
 }
 
 /* Sidebar */
@@ -36,6 +35,7 @@
     display: none !important;
 }
 
+
 .sidebar:not(.open) .navlinks {
     width: 50px;
     height: 50px;
@@ -48,7 +48,7 @@
 }
 
 .sidebar:not(.open) .navlinks svg {
-    font-size: 22px;
+    font-size: 30px;
     color: white;
 }
 
@@ -57,18 +57,36 @@
     transform: scale(1.1);
 }
 
-.sidebar:not(.open) .navlinks svg {
-    font-size: 30px;
-    color: white;
-}
-
-.sidebar:not(.open) .logo {
+.sidebar:not(.open) .logo h2 {
     display: none;
 }
 
 .logo {
+    height: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 2px solid #ff00b3;
+}
+
+.logo span {
+    height: 40px;
+    width: 40px;
+    font-size: 30px;
+    color: #9dbba6;
+    font-weight: bold;
+    background-color: #b85f9d;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo h2{
+    font-size: 30px;
     text-align: center;
-    margin-bottom: 20px;
+    color: #cd489a;
+    font-weight: bold;
+
 }
 
 /* Nav Links */
@@ -77,11 +95,13 @@
     align-items: center;
     justify-content: center;
     gap: 15px;
-    padding: 13px;
+    margin: 10px;
+    padding: 15px;
     border-radius: 8px;
     color: #fff;
     text-decoration: none;
     transition: 0.2s;
+    background-color: #da3da0;
 }
 
 .navlinks:hover {
@@ -89,11 +109,12 @@
 }
 
 .navlinks.active {
-    background: #751c72;
+    background: linear-gradient(90deg, #da3da0,#2ecc71);
 }
 
 /* Logout */
 .logout {
+    width: 200px;
     margin-top: auto;
     display: flex;
     align-items: center;
@@ -128,7 +149,7 @@
 }
 
 .sidebar:not(.open) .logout:hover {
-    background-color: #8a1f1f; /* red for logout */
+    background-color: #8a1f1f;
     transform: scale(1.1);
     transition: 0.3s;
 }
@@ -136,10 +157,10 @@
 /* Main */
 .main {
     flex: 1;
-    margin-left: 240px; /* sidebar width */
+    margin-left: 240px;
     height: 100vh;
-    overflow-y: auto; /* ?? only content scroll */
-  background: linear-gradient(90deg,#da3da0, #2ecc71);
+    overflow-y: auto;
+    background: linear-gradient(90deg,#da3da0, #2ecc71);
     transition: 0.3s;
 }
 
@@ -166,10 +187,10 @@
 }
 
 .header button {
+    width: 50px;
     font-size: 20px;
-    background-color: #2ecc71;
     border: none;
-    color: rgb(0, 0, 0);
+    color: #fff;
     padding: 5px 12px;
     border-radius: 5px;
     cursor: pointer;

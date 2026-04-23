@@ -47,7 +47,11 @@ const DashboardLayout = ({children}) => {
   return (
     <div className="container">
       <div className={open ? "sidebar open" : "sidebar"}>
-        <h2 className="logo">Admin</h2>
+        <div className="logo">
+          <span>A</span>
+          <h2>Admin</h2>
+        </div> 
+
 
         <NavLink to="/admindashboard" className="navlinks">
           <MdDashboard />
