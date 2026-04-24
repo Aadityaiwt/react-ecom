@@ -102,7 +102,9 @@ const Products = () => {
       <Header cart={cart} />
 
       <div>
-        <h2 className="head" id="head">Our Products</h2>
+        <div class="parent">
+          <h1 class="head">Our Products</h1>
+        </div>
         {loading ? (
           <div className="loader-container">
             <div className="loader"></div>

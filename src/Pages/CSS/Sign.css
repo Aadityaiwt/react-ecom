@@ -42,9 +42,15 @@ input {
 
 .regiter-btn {
   height: 50px;
-  width: 300px;
+  width: 150px;
   font-weight: bold;
   font-size: large;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2ecc71, #da3da0);
+  border: none;
+  color: white;
+  cursor: pointer;
 }
 
  p {

@@ -168,7 +168,7 @@ const Cart = () => {
                 onChange={(e) => setAddress(e.target.value)}
               ></textarea>
 
-              <button onClick={handlePlace}>Place Order</button>
+              <button className="order-btn" onClick={handlePlace}>Place Order</button>
             </div>
 
           </>

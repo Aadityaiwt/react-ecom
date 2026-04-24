@@ -20,8 +20,8 @@ const handleLogin = async () => {
     return toast.error("Please fill all fields");
   }
 
+  setLoading(true);
   try {
-    setLoading(true);
 
     const res = await axios.post(`${API_URL}/api/login`, {
       email,
@@ -29,22 +29,24 @@ const handleLogin = async () => {
     });
 
     if (res.data.success) {
-      const user = res.data.user;
+  const { user, token } = res.data;
 
-      // ? save properly
-      localStorage.setItem("user", JSON.stringify(user));
+  // ?? store user
+  localStorage.setItem("user", JSON.stringify(user));
 
-      toast.success("Login successful");
+  // ?? store token (IMPORTANT)
+  localStorage.setItem("token", token);
 
-      setTimeout(() => {
-        if (user.role === "admin") {
-          navigate("/dashboardLayout");
-        } else {
-          navigate("/");
-        }
-      }, 1000);
+  toast.success("Login successful");
 
+  setTimeout(() => {
+    if (user.role === "admin") {
+      navigate("/dashboardLayout");
     } else {
+      navigate("/");
+    }
+  }, 1000);
+} else {
       toast.error("Invalid Email or Password Or not exist this account please signup");
     }
   } catch (error) {

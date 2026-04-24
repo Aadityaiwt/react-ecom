@@ -12,10 +12,13 @@ const Sign = () => {
 
   const navigate = useNavigate();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
+    setLoading(true);
     try {
       const res = await axios.post(`${API_URL}/api/signup`, {
         email,
@@ -49,6 +52,16 @@ const Sign = () => {
         </div>
 
         <div className="register-form">
+          <label htmlFor="email">Name</label>
+          <br />
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <br />
+
           <label htmlFor="email">Email</label>
           <br />
           <input
@@ -69,8 +82,8 @@ const Sign = () => {
           />
         </div>
 
-        <button className="regiter-btn" onClick={handleSignup}>
-          Register
+        <button className="regiter-btn" onClick={handleSignup} disabled={loading}>
+          {loading ? "Registering.." : "Register"}
         </button>
 
         <p>

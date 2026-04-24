@@ -1,66 +1,107 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardLayout from "../../Components/DashboardLayout";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import './CSS/AdminProfile.css'
-
+import "./CSS/AdminProfile.css";
+import axios from "axios";
 
 const AdminProfile = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // ?? Dummy data (later API se replace karna)
   const [profile, setProfile] = useState({
-    name: "Aditya Kumar",
-    email: "admin@gmail.com",
-    phone: "6389450032",
-    role: "Admin",
+    name: "",
+    email: "",
+    phone: "",
+    role: "",
   });
 
-  const [editData, setEditData] = useState(profile);
+  const [editData, setEditData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
 
-  // ? Handle change
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.get(`${API_URL}/api/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setProfile(res.data);
+      setEditData({
+        name: res.data.name,
+        email: res.data.email,
+        phone: res.data.phone,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
 
-  // ? Save
-  const handleSave = () => {
-    setProfile(editData);
-    setVisible(false);
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.put(`${API_URL}/api/profile`, editData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setProfile(res.data);
+      setVisible(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
       <DashboardLayout>
         <div className="profile-container">
-          <div className="profile-card">
-
-            {/* ?? Profile Header */}
-            <div className="profile-header">
-              <div className="avatar">
-                {profile.name.charAt(0)}
+          {loading ? (
+            <p>Loading profile...</p>
+          ) : (
+            <div className="profile-card">
+              <div className="profile-header">
+                <div className="avatar">{profile.name?.charAt(0)}</div>
+                <h2>{profile.name}</h2>
+                <p>{profile.role}</p>
               </div>
-              <h2>{profile.name}</h2>
-              <p>{profile.role}</p>
-            </div>
 
-            {/* ?? Info */}
-            <div className="profile-info">
-              <p><b>Email:</b> {profile.email}</p>
-              <p><b>Phone:</b> {profile.phone}</p>
-            </div>
+              <div className="profile-info">
+                <p>
+                  <b>Email:</b> {profile.email}
+                </p>
+                <p>
+                  <b>Phone:</b> {profile.phone}
+                </p>
+              </div>
 
-            {/* ?? Edit Button */}
-            <Button
-              label="Edit Profile"
-              className="edit-btn"
-              onClick={() => setVisible(true)}
-            />
-          </div>
+              <Button
+                label="Edit Profile"
+                className="edit-btn"
+                onClick={() => setVisible(true)}
+              />
+            </div>
+          )}
         </div>
       </DashboardLayout>
 
-      {/* ?? Edit Dialog */}
       <Dialog
         header="Edit Profile"
         visible={visible}
@@ -90,11 +131,7 @@ const AdminProfile = () => {
             placeholder="Phone"
           />
 
-          <Button
-            label="Save"
-            className="save-btn"
-            onClick={handleSave}
-          />
+          <Button label="Save" className="save-btn" onClick={handleSave} />
         </div>
       </Dialog>
     </>

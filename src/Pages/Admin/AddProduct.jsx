@@ -5,34 +5,48 @@ import axios from "axios";
 import "./CSS/AddProduct.css";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
-  const API_URL = import.meta.env.VITE_API_URL
-  const navigate = useNavigate();
-
-// useEffect(() => {
-//   const token = localStorage.getItem("token");
-//   if (!token) navigate("/login");
-// }, []);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const [title, setTitle] = useState("");
   const [des, setDes] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
-  const [Loader, setLoader] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
   const [visible, setVisible] = useState(false);
   const [product, setProduct] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login";
+    }
+  }, []);
+
+  const fetchProduct = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/api/get-all`);
+      setProduct(res.data.product || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoader(true);
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("title", title);
@@ -44,18 +58,30 @@ const AddProduct = () => {
     }
 
     try {
+      const token = localStorage.getItem("token");
+
       let res;
 
       if (editMode) {
-        res = await axios.post(
+        res = await axios.put(
           `${API_URL}/api/update/${selectedProduct._id}`,
           formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
-        toast("Product Updated");
+        toast.success("Product Updated");
       } else {
-        res = await axios.post(`${API_URL}/api/add`, formData);
-        toast("Product Added");
+        res = await axios.post(`${API_URL}/api/add`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        toast.success("Product Added");
       }
 
       fetchProduct();
@@ -64,13 +90,9 @@ const AddProduct = () => {
       console.log(error);
       toast.error("Something went wrong");
     } finally {
-      setLoader(false);
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchProduct();
-  }, []);
 
   const handleEdit = (rowData) => {
     setEditMode(true);
@@ -83,174 +105,96 @@ const AddProduct = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete(`${API_URL}/api/delete/${id}`);
+      const token = localStorage.getItem("token");
+
+      await axios.delete(`${API_URL}/api/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      toast.success("Product Deleted");
       fetchProduct();
-      toast("Product Deleted");
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const actionTemplate = (rowData) => {
-    return (
-      <div>
-        <Button
-          label="Edit"
-          onClick={() => handleEdit(rowData)}
-          className="ed-btn"
-        />
-
-        <Button
-          label="Delete"
-          onClick={() => handleDelete(rowData._id)}
-          className="ed-btn"
-        />
-      </div>
-    );
   };
 
   const resetForm = () => {
-    setDes("");
     setTitle("");
+    setDes("");
     setPrice("");
     setImage(null);
-    setSelectedProduct(null);
     setEditMode(false);
+    setSelectedProduct(null);
     setVisible(false);
   };
 
-  const fetchProduct = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/api/get-all`);
-      setProduct(res.data.product);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const actionTemplate = (rowData) => (
+    <div>
+      <Button label="Edit" onClick={() => handleEdit(rowData)} className="ed-btn" />
+      <Button label="Delete" onClick={() => handleDelete(rowData._id)} className="ed-btn" />
+    </div>
+  );
 
-  const imageBodyTemplate = (rowData) => {
+  const imageBodyTemplate = (rowData) => (
+    <img src={rowData.image} alt="product" className="add-product-image" />
+  );
+
+  const filteredProducts = product.filter((item) => {
+    const s = search.toLowerCase();
     return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <img src={rowData.image} alt="product" className="add-product-image" />
-      </div>
+      item.title?.toLowerCase().includes(s) ||
+      item.des?.toLowerCase().includes(s) ||
+      item.price?.toString().includes(s)
     );
-  };
-
-const filteredProducts = product
-  .filter((item) => {
-    const searchText = search.toLowerCase();
-
-    return (
-      item.title.toLowerCase().includes(searchText) ||
-      item.des.toLowerCase().includes(searchText) ||
-      item.price.toString().includes(searchText)
-    );
-  })
-  .sort((a, b) => {
-    const searchText = search.toLowerCase();
-
-    const aMatch =
-      a.title.toLowerCase().startsWith(searchText) ||
-      a.des.toLowerCase().startsWith(searchText);
-
-    const bMatch =
-      b.title.toLowerCase().startsWith(searchText) ||
-      b.des.toLowerCase().startsWith(searchText);
-
-    if (aMatch && !bMatch) return -1;
-    if (!aMatch && bMatch) return 1;
-    return 0;
   });
 
   return (
-    <>
-      <DashboardLayout>
-        <div className="header-button">
-          <h2>Add Product</h2>
-          <Button
-            className="add-form-btn"
-            label="Add Product"
-            icon="pi pi-external-link"
-            onClick={() => setVisible(true)}
-          />
-        </div>
+    <DashboardLayout>
+      <div className="header-button">
+        <h2>Add Product</h2>
 
-        <div className="search">
-          <input
-            type="text"
-            placeholder="Search product"
-            className="search-input"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-
-        <DataTable
-          className="p-datatable-gridlines"
-          value={filteredProducts}
-          tableStyle={{ minWidth: "60rem", textAlign: "center" }}
-        >
-          <Column field="title" header="Name"></Column>
-          <Column header="Image" body={imageBodyTemplate}></Column>
-          <Column field="des" header="Description"></Column>
-          <Column field="price" header="Price"></Column>
-          <Column header="Action" body={actionTemplate}></Column>
-        </DataTable>
-      </DashboardLayout>
-      <div className="card flex justify-content-center">
-        <Dialog
-          className="dialog"
-          header={editMode ? "Edit Product" : "Add Product"}
-          visible={visible}
-          style={{ width: "30vw", backgroundColor: "brown" }}
-          onHide={() => {
-            if (!visible) return;
-            setVisible(false);
-          }}
-        >
-          <p className="m-0">
-            <form onSubmit={handleSubmit} className="form">
-              <input
-                type="text"
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <br /> <br />
-              <input
-                type="text"
-                placeholder="Description"
-                value={des}
-                onChange={(e) => setDes(e.target.value)}
-              />
-              <br /> <br />
-              <input
-                id="file"
-                type="file"
-                onChange={(e) => setImage(e.target.files[0])}
-              />
-              <br /> <br />
-              <input
-                type="text"
-                placeholder="Price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-              <br /> <br />
-              <button type="submit" className="add-btn">
-                {Loader
-                  ? editMode
-                    ? "Updating.."
-                    : "Adding.."
-                  : editMode
-                    ? "Update Product"
-                    : "Add Product"}
-              </button>
-            </form>
-          </p>
-        </Dialog>
+        <Button
+          label="Add Product"
+          onClick={() => setVisible(true)}
+        />
       </div>
-    </>
+
+      <div className="search">
+        <input
+          type="text"
+          placeholder="Search product"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      <DataTable value={filteredProducts}>
+        <Column field="title" header="Name" />
+        <Column header="Image" body={imageBodyTemplate} />
+        <Column field="des" header="Description" />
+        <Column field="price" header="Price" />
+        <Column header="Action" body={actionTemplate} />
+      </DataTable>
+
+      <Dialog
+        header={editMode ? "Edit Product" : "Add Product"}
+        visible={visible}
+        onHide={() => setVisible(false)}
+      >
+        <form onSubmit={handleSubmit}>
+          <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
+          <input value={des} onChange={(e) => setDes(e.target.value)} placeholder="Description" />
+          <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+          <input value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price" />
+
+          <button disabled={loading}>
+            {loading ? "Processing..." : editMode ? "Update" : "Add"}
+          </button>
+        </form>
+      </Dialog>
+    </DashboardLayout>
   );
 };
 

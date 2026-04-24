@@ -21,7 +21,7 @@ const About = () => {
 
           <div className="about-left">
             <img 
-              src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6"
+              src="/Images/flower.jpg"
               alt="flowers"
             />
           </div>

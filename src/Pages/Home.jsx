@@ -18,11 +18,6 @@ const Home = () => {
           <button>Shop Now</button>
         </div>
       </div>
-      <div className="home-right">
-        <div className="home-image">
-          {/* <img src="/Images/home-image.png" alt="" /> */}
-        </div>
-      </div>
     </div>
      <Products />
     

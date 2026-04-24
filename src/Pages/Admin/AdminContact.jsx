@@ -15,21 +15,31 @@ const AdminContact = () => {
 
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // ?? Auth check
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (!token) navigate("/login");
-  // }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) navigate("/login");
+  }, []);
 
-  // ?? Fetch contacts
   const fetchContacts = async () => {
+    setLoading(true);
+
     try {
-      const res = await axios.get(`${API_URL}/api/contact/get-all`);
-      setContacts(res.data.contacts);
+      const token = localStorage.getItem("token");
+
+      const res = await axios.get(`${API_URL}/api/contact/get-all`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setContacts(res.data.contacts || res.data || []);
     } catch (error) {
       console.log(error);
       toast.error("Failed to fetch contacts");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,11 +47,17 @@ const AdminContact = () => {
     fetchContacts();
   }, []);
 
-  // ? Delete contact
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${API_URL}/api/contact/delete/${id}`);
-      toast("Contact Deleted");
+      const token = localStorage.getItem("token");
+
+      await axios.delete(`${API_URL}/api/contact/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      toast.success("Contact Deleted");
       fetchContacts();
     } catch (error) {
       console.log(error);
@@ -49,51 +65,47 @@ const AdminContact = () => {
     }
   };
 
-  // ?? Action buttons
   const actionTemplate = (rowData) => {
     return (
-      <div>
-        <Button
-          label="Delete"
-          className="ed-btn"
-          onClick={() => handleDelete(rowData._id)}
-        />
-      </div>
+      <Button
+        label="Delete"
+        className="ed-btn"
+        onClick={() => handleDelete(rowData._id)}
+      />
     );
   };
 
-  // ?? Search filter
   const filteredContacts = contacts.filter((item) => {
     const text = search.toLowerCase();
 
     return (
-      item.firstName.toLowerCase().includes(text) ||
-      item.lastName.toLowerCase().includes(text) ||
-      item.email.toLowerCase().includes(text) ||
-      item.phone.includes(text) ||
-      item.message.toLowerCase().includes(text)
+      item?.firstName?.toLowerCase().includes(text) ||
+      item?.lastName?.toLowerCase().includes(text) ||
+      item?.email?.toLowerCase().includes(text) ||
+      item?.phone?.includes(text) ||
+      item?.message?.toLowerCase().includes(text)
     );
   });
 
   return (
-    <>
-      <DashboardLayout>
-        <div className="header-button">
-          <h2>Contact Messages</h2>
-        </div>
+    <DashboardLayout>
+      <div className="header-button">
+        <h2>Contact Messages</h2>
+      </div>
 
-        {/* ?? Search */}
-        <div className="search">
-          <input
-            type="text"
-            placeholder="Search contact..."
-            className="search-input"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
+      <div className="search">
+        <input
+          type="text"
+          placeholder="Search contact..."
+          className="search-input"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
 
-        {/* ?? Data Table */}
+      {loading ? (
+        <p>Loading contacts...</p>
+      ) : (
         <DataTable
           value={filteredContacts}
           className="p-datatable-gridlines"
@@ -107,8 +119,8 @@ const AdminContact = () => {
           <Column field="message" header="Message" />
           <Column header="Action" body={actionTemplate} />
         </DataTable>
-      </DashboardLayout>
-    </>
+      )}
+    </DashboardLayout>
   );
 };
 

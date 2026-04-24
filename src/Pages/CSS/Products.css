@@ -30,10 +30,26 @@ body {
 }
 
 .head {
-  text-align: center;
   color: #b3025a;
   margin-top: 80px;
+  border-bottom: 3px solid #b3025a;
+  display: inline-block;
 }
+
+.parent {
+  text-align: center;
+}
+
+/* .head::after {
+    content: "";
+    height: 3px;
+    background-color: crimson;
+    width: 0px;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    left: 0px;
+} */
 
 .product-container {
   display: flex;
