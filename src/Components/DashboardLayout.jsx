@@ -11,15 +11,27 @@ import { CgProfile } from "react-icons/cg";
 import Swal from "sweetalert2";
 import { TiThMenu } from "react-icons/ti";
 
-const DashboardLayout = ({children}) => {
+const DashboardLayout = ({ children }) => {
   const navigate = useNavigate();
 
-  const token = localStorage.getItem("token")
-  useEffect(()=> {
-    if(!token) {
-      navigate('/login')
+useEffect(() => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      navigate("/login");
+      return;
     }
-  }, [])
+
+    if (user.role !== "admin") {
+      navigate("/");
+    }
+
+  } catch (error) {
+    localStorage.clear();
+    navigate("/login");
+  }
+}, []);
 
   const [open, setOpen] = useState(false);
 
@@ -28,15 +40,22 @@ const DashboardLayout = ({children}) => {
       title: "Are you sure to Logout?",
       text: "After this You can not redirect to login page",
       icon: "question",
-      showCloseButton: true,
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
+      customClass: {
+        confirmButton: "swal-confirm-btn",
+        cancelButton: "swal-cancel-btn",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Logout!",
           text: "You are logged out.",
           icon: "success",
+          customClass: {
+        confirmButton: "swal-confirm-btn",
+      },
         });
         localStorage.clear();
         navigate("/");
@@ -50,8 +69,7 @@ const DashboardLayout = ({children}) => {
         <div className="logo">
           <span>A</span>
           <h2>Admin</h2>
-        </div> 
-
+        </div>
 
         <NavLink to="/admindashboard" className="navlinks">
           <MdDashboard />
@@ -92,9 +110,7 @@ const DashboardLayout = ({children}) => {
           <h3>Dashboard</h3>
         </div>
 
-        <div className="content">
-          {children}
-        </div>
+        <div className="content">{children}</div>
       </div>
     </div>
   );

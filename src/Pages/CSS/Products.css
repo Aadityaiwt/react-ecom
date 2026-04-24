@@ -4,9 +4,34 @@ body {
   padding: 0;
 }
 
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #b3025a;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .head {
   text-align: center;
-  color: #B3025A;
+  color: #b3025a;
   margin-top: 80px;
 }
 
@@ -20,7 +45,7 @@ body {
 
 .close {
   font-size: 18px;
-  background-color: #B3025A;
+  background-color: #b3025a;
 }
 
 h2 {
@@ -108,7 +133,6 @@ h2 {
   color: white;
 }
 
-
 .buy-outer {
   position: fixed;
   top: 0;
@@ -137,7 +161,7 @@ h2 {
 .buy-left {
   width: 60%;
   padding: 25px;
-  background: #B3025A;
+  background: #b3025a;
 }
 
 .buy-form {

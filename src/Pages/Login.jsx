@@ -29,20 +29,27 @@ const handleLogin = async () => {
     });
 
     if (res.data.success) {
-      localStorage.setItem("token", res.data.admin);
+      const user = res.data.user;
+
+      // ? save properly
+      localStorage.setItem("user", JSON.stringify(user));
 
       toast.success("Login successful");
 
       setTimeout(() => {
-        navigate("/dashboardLayout");
+        if (user.role === "admin") {
+          navigate("/dashboardLayout");
+        } else {
+          navigate("/");
+        }
       }, 1000);
+
     } else {
-      toast.error("Invalid Email or Password");
+      toast.error("Invalid Email or Password Or not exist this account please signup");
     }
   } catch (error) {
     toast.error("Something went wrong");
     console.log(error);
-    
   } finally {
     setLoading(false);
   }

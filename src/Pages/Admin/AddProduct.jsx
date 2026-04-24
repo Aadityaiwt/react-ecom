@@ -14,10 +14,10 @@ const AddProduct = () => {
   const API_URL = import.meta.env.VITE_API_URL
   const navigate = useNavigate();
 
-useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (!token) navigate("/login");
-}, []);
+// useEffect(() => {
+//   const token = localStorage.getItem("token");
+//   if (!token) navigate("/login");
+// }, []);
 
   const [title, setTitle] = useState("");
   const [des, setDes] = useState("");

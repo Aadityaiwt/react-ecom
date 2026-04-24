@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./CSS/cart.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 
 const Cart = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -90,88 +92,89 @@ const Cart = () => {
 
   return (
     <>
-<div className="cart-container">
-  <h2 className="cart-heading">My Cart</h2>
+    <Header />
+      <div className="cart-container">
+        <h2 className="cart-heading">My Cart</h2>
 
-  {cart.length === 0 ? (
-    <h3 className="empty-cart">Your cart is empty</h3>
-  ) : (
-    <>
-      <div className="cart-grid">
-        {cart.map((item) => (
-          <div className="cart-card" key={item._id}>
-            <img src={item.image} alt="" />
+        {cart.length === 0 ? (
+          <h3 className="empty-cart">Your cart is empty</h3>
+        ) : (
+          <>
+            <div className="cart-grid">
+              {cart.map((item) => (
+                <div className="cart-card" key={item._id}>
+                  <img src={item.image} alt="" />
 
-            <div className="cart-info">
-              <div className="cart-title">
-                <h3>Title</h3>
-                <h3>{item.title}</h3>
-              </div>
-              <p>{item.des}</p>
+                  <div className="cart-info">
+                    <div className="cart-title">
+                      <h3>Title</h3>
+                      <h3>{item.title}</h3>
+                    </div>
+                    <p>{item.des}</p>
 
-              <div className="cart-meta">
-                <span>Qty: {item.quantity}</span>
-                <span>{item.price}rs</span>
-              </div>
+                    <div className="cart-meta">
+                      <span>Qty: {item.quantity}</span>
+                      <span>{item.price}rs</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ))}
+
+            {/* Summary Section */}
+            <div className="cart-summary">
+              <h2>Total: {getTotal()}rs</h2>
+            </div>
+
+            {/* Order Form Section */}
+            <div className="checkout-form">
+              <h3>Shipping Details</h3>
+
+              <div className="form-grid">
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <input
+                  type="text"
+                  placeholder="Contact Number"
+                  maxLength="10"
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
+                />
+
+                <input
+                  type="text"
+                  placeholder="Pincode"
+                  maxLength="6"
+                  value={pincode}
+                  onChange={(e) => setPincode(e.target.value)}
+                />
+              </div>
+
+              <textarea
+                placeholder="Full Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              ></textarea>
+
+              <button onClick={handlePlace}>Place Order</button>
+            </div>
+
+          </>
+        )}
       </div>
-
-      {/* Summary Section */}
-      <div className="cart-summary">
-        <h2>Total: {getTotal()}rs</h2>
-      </div>
-
-      {/* Order Form Section */}
-      <div className="checkout-form">
-        <h3>Shipping Details</h3>
-
-        <div className="form-grid">
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <input
-            type="text"
-            placeholder="Contact Number"
-            maxLength="10"
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
-          />
-
-          <input
-            type="text"
-            placeholder="Pincode"
-            maxLength="6"
-            value={pincode}
-            onChange={(e) => setPincode(e.target.value)}
-          />
-        </div>
-
-        <textarea
-          placeholder="Full Address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        ></textarea>
-
-        <button onClick={handlePlace}>
-          Place Order
-        </button>
-      </div>
-    </>
-  )}
-</div>
+      <Footer />
     </>
   );
 };

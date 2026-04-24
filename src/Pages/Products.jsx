@@ -13,16 +13,26 @@ const Products = () => {
   const [showBuy, setShowBuy] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [product, setProduct] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [cart, setCart] = useState(() => {
     return JSON.parse(localStorage.getItem("cart")) || [];
   });
   const navigate = useNavigate();
   const getProducts = async () => {
     try {
+      setLoading(true);
+      setError(null);
+
       const res = await axios.get(`${API_URL}/api/get-all`);
-      setProduct(res.data.product);
-    } catch (error) {
-      console.log(error);
+
+      setProduct(res.data.product || res.data.products || res.data);
+    } catch (err) {
+      console.log(err);
+      setError("Failed to load products");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,35 +102,45 @@ const Products = () => {
       <Header cart={cart} />
 
       <div>
-        <h2 className="head">Our Products</h2>
-        <div className="product-container">
-          {product.map((item, i) => (
-            <div className="card-outer" key={item._id}>
-              <img src={item.image} />
-              <h2>{item.title}</h2>
-              <p>{item.des}</p>
-              <h3>Price : {item.price}rs</h3>
-              <div className="cart-btn">
-                <span className="decrease" onClick={() => decreaseQty(item)}>
-                  -
-                </span>
+        <h2 className="head" id="head">Our Products</h2>
+        {loading ? (
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        ) : error ? (
+          <h2>{error}</h2>
+        ) : product.length === 0 ? (
+          <h2>No Products Found</h2>
+        ) : (
+          <div className="product-container">
+            {product.map((item, i) => (
+              <div className="card-outer" key={item._id}>
+                <img src={item.image} />
+                <h2>{item.title}</h2>
+                <p>{item.des}</p>
+                <h3>Price : {item.price}rs</h3>
+                <div className="cart-btn">
+                  <span className="decrease" onClick={() => decreaseQty(item)}>
+                    -
+                  </span>
 
-                <FaShoppingCart className="cart-icon" />
+                  <FaShoppingCart className="cart-icon" />
 
-                <span className="increase" onClick={() => increaseQty(item)}>
-                  +
-                </span>
+                  <span className="increase" onClick={() => increaseQty(item)}>
+                    +
+                  </span>
+                </div>
+                <button
+                  onClick={() => {
+                    navigate("/cart");
+                  }}
+                >
+                  Buy Now
+                </button>
               </div>
-              <button
-                onClick={() => {
-                  navigate("/cart");
-                }}
-              >
-                Buy Now
-              </button>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <Footer />

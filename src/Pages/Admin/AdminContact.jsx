@@ -17,10 +17,10 @@ const AdminContact = () => {
   const [search, setSearch] = useState("");
 
   // ?? Auth check
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) navigate("/login");
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) navigate("/login");
+  // }, []);
 
   // ?? Fetch contacts
   const fetchContacts = async () => {

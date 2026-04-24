@@ -10,14 +10,14 @@ import { useNavigate } from "react-router-dom";
 const Sign = () => {
   const API_URL = import.meta.env.VITE_API_URL;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSignup = async () => {
     try {
-      const res = await axios.post(`${API_URL}/api/create-admin`, {
+      const res = await axios.post(`${API_URL}/api/signup`, {
         email,
         password,
       });
