@@ -5,6 +5,7 @@ import { useNavigate, NavLink, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -12,58 +13,55 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const handleLogin = async () => {
-
-  if (!email.trim() || !password.trim()) {
-    return toast.error("All fields are required");
-  }
-
-  if (!emailRegex.test(email)) {
-    return toast.error("Invalid email format");
-  }
-
-  setLoading(true);
-
-  try {
-    const res = await axios.post(`${API_URL}/api/login`, {
-      email: email.toLowerCase(),
-      password,
-    });
-
-    if (res.data.success) {
-      const { user, token } = res.data;
-
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("token", token);
-
-      toast.success("Login successful");
-
-      if (user.role === "admin") {
-        navigate("/dashboardLayout");
-      } else {
-        navigate("/");
-      }
-
-    } else {
-      toast.error(res.data.message || "Login failed");
+  const handleLogin = async () => {
+    if (!email.trim() || !password.trim()) {
+      return toast.error("All fields are required");
     }
 
-  } catch (error) {
-    const msg =
-      error.response?.data?.message ||
-      "Server error, try again later";
+    if (!emailRegex.test(email)) {
+      return toast.error("Invalid email format");
+    }
 
-    toast.error(msg);
-    console.log(error);
-  } finally {
-    setLoading(false);
-  }
-};
+    setLoading(true);
+
+    try {
+      const res = await axios.post(`${API_URL}/api/login`, {
+        email: email.toLowerCase(),
+        password,
+      });
+
+      if (res.data.success) {
+        const { user, token } = res.data;
+
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", token);
+
+        toast.success("Login successful");
+
+        if (user.role === "admin") {
+          navigate("/dashboardLayout");
+        } else {
+          navigate("/");
+        }
+      } else {
+        toast.error(res.data.message || "Login failed");
+      }
+    } catch (error) {
+      const msg =
+        error.response?.data?.message || "Server error, try again later";
+
+      toast.error(msg);
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -77,8 +75,7 @@ const handleLogin = async () => {
         <div className="divider">
           <span>OR</span>
         </div>
-        <div
-          className="form">
+        <div className="form">
           <label htmlFor="email" id="email" className="margin">
             Email
           </label>
@@ -90,23 +87,30 @@ const handleLogin = async () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <br />
-          <label htmlFor="password" id="password" className="margin">
+          <label htmlFor="password" id="password">
             Password
           </label>
           <br />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />{" "}
+
+          <div className="password-field">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              className="eye-icon"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
           <br />
           <span>Forgot password?</span>
         </div>
-        <button
-          className="login-btn"
-          onClick={handleLogin}
-          disabled={loading}
-        >
+        <button className="login-btn" onClick={handleLogin} disabled={loading}>
           {loading ? "Loading.." : "Login"}
         </button>
         <p>
