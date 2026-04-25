@@ -182,8 +182,9 @@
 }
 
 .header h3 {
-    color: White;
-    font-size: 22px;
+    color: rgb(68, 242, 68);
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .header button {
@@ -193,6 +194,7 @@
     color: #fff;
     padding: 5px 12px;
     border-radius: 5px;
+    background: linear-gradient(90deg,#da3da0, #2ecc71);
     cursor: pointer;
 }
 

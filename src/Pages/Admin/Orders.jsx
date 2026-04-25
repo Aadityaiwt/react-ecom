@@ -37,60 +37,59 @@ const Orders = () => {
   };
 
   return (
-    <DashboardLayout>
-      <div className="orders-page">
-        <h2>Orders</h2>
+<DashboardLayout>
+  <div className="orders-page">
+    <h2>Orders</h2>
 
-        {loading ? (
-          <p>Loading orders...</p>
-        ) : orders.length === 0 ? (
-          <p>No Orders Found</p>
-        ) : (
-          <div className="orders-grid">
-            {orders.map((order) => (
-              <div className="order-card" key={order._id}>
-                <div className="order-user">
-                  <h3>{order.name}</h3>
-                  <p>
-                    <b>Email : </b>
-                    {order.email}
-                  </p>
-                  <p>
-                    <b>Phone : </b>
-                    {order.contact}
-                  </p>
-                  <p>
-                    <b>Address : </b>
-                    {order.address}
-                  </p>
-                </div>
+    {loading ? (
+      <p>Loading orders...</p>
+    ) : orders.length === 0 ? (
+      <p>No Orders Found</p>
+    ) : (
+      <table className="orders-table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Products</th>
+            <th>Total</th>
+            <th>Date</th>
+          </tr>
+        </thead>
 
-                <div className="order-products">
-                  {order.products?.map((item, i) => (
-                    <div className="order-item" key={i}>
-                      <img className="order-image" src={item.image} />
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order._id}>
+              <td>{order.name}</td>
+              <td>{order.email}</td>
+              <td>{order.contact}</td>
+              <td>{order.address}</td>
 
-                      <div>
-                        <h4>{item.title}</h4>
-                        <p>
-                          Price : {item.price} <br />
-                        </p>
-                        <p>Quantity : {item.quantity}</p> <hr />
-                      </div>
+              {/* Products Column */}
+              <td>
+                {order.products?.map((item, i) => (
+                  <div key={i} className="table-product">
+                    <img src={item.image} alt="" />
+                    <div>
+                      <p><b>Title : </b>{item.title}</p>
+                      <p><b>Price : </b>{item.price}rs</p>
+                      <p><b>Quantity :  </b>{item.quantity}</p>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
+              </td>
 
-                <div className="order-footer">
-                  <p>{new Date(order.createdAt).toLocaleString()}</p>
-                  <h4>Total: {order.totalAmount}rs</h4>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </DashboardLayout>
+              <td>{order.totalAmount}rs</td>
+              <td>{new Date(order.createdAt).toLocaleString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )}
+  </div>
+</DashboardLayout>
   );
 };
 

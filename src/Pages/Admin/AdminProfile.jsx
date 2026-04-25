@@ -85,7 +85,7 @@ const AdminProfile = () => {
 
               <div className="profile-info">
                 <p>
-                  <b>Email:</b> {profile.email}
+                  <b>Email: </b> {profile.email}
                 </p>
                 <p>
                   <b>Phone:</b> {profile.phone}
@@ -131,7 +131,7 @@ const AdminProfile = () => {
             placeholder="Phone"
           />
 
-          <Button label="Save" className="save-btn" onClick={handleSave} />
+          <button label="Save" className="save-btn" onClick={handleSave} />
         </div>
       </Dialog>
     </>

@@ -102,8 +102,8 @@ const Products = () => {
       <Header cart={cart} />
 
       <div>
-        <div class="parent">
-          <h1 class="head">Our Products</h1>
+        <div className="parent">
+          <h1 className="head">Our Products</h1>
         </div>
         {loading ? (
           <div className="loader-container">

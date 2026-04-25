@@ -40,17 +40,6 @@ body {
   text-align: center;
 }
 
-/* .head::after {
-    content: "";
-    height: 3px;
-    background-color: crimson;
-    width: 0px;
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    left: 0px;
-} */
-
 .product-container {
   display: flex;
   gap: 30px;
@@ -186,11 +175,6 @@ h2 {
   gap: 12px;
 }
 
-.flex {
-  display: flex;
-  gap: 10px;
-}
-
 .buy-form input,
 .buy-form textarea {
   width: 100%;
@@ -268,7 +252,8 @@ h2 {
     height: 200px;
   }
 
-  .flex {
+  .product-container {
     flex-direction: column;
+    align-items: center;
   }
 }

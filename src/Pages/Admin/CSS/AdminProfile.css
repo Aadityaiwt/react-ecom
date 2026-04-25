@@ -82,6 +82,8 @@
 
 /* ?? Save Button */
 .save-btn {
+  height: 50px;
+  width: 150px;
   background-color: #3498db;
   border: none;
 }

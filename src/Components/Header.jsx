@@ -8,25 +8,28 @@ const Header = ({ cart }) => {
 
   const menuRef = useRef();
   const buttonRef = useRef();
+  const btnContainerRef = useRef();
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target)
-      ) {
-        setMenuOpen(false);
-      }
-    };
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target) &&
+      buttonRef.current &&
+      !buttonRef.current.contains(event.target) &&
+      btnContainerRef.current &&
+      !btnContainerRef.current.contains(event.target)
+    ) {
+      setMenuOpen(false);
+    }
+  };
 
-    document.addEventListener("mousedown", handleClickOutside);
+  document.addEventListener("click", handleClickOutside);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  return () => {
+    document.removeEventListener("click", handleClickOutside);
+  };
+}, []);
 
   return (
     <div className="nav">
@@ -37,7 +40,9 @@ const Header = ({ cart }) => {
       <div ref={menuRef} className={`ul-list ${menuOpen ? "active" : ""}`}>
         <ul>
           <li>
-            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link to="/" onClick={() => setMenuOpen(false)}>
+              Home
+            </Link>
           </li>
           <li>
             <Link to="/products">Products</Link>
@@ -54,7 +59,7 @@ const Header = ({ cart }) => {
         </ul>
       </div>
 
-      <div className="mobile-btn-container">
+      <div ref={btnContainerRef} className="mobile-btn-container">
         <Link to="/login" className="login-btn">
           Login
         </Link>

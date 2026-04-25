@@ -1,11 +1,9 @@
-/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* NAVBAR */
 .nav {
   height: 70px;
   width: 100%;
@@ -20,12 +18,10 @@
   border-bottom: 1px solid #84205f;
 }
 
-/* LOGO */
 .logo img {
   height: 50px;
 }
 
-/* MENU */
 .ul-list ul {
   display: flex;
   gap: 30px;
@@ -39,7 +35,6 @@
   position: relative;
 }
 
-/* HOVER UNDERLINE */
 .ul-list ul li a::after {
   content: "";
   position: absolute;
@@ -55,7 +50,6 @@
   width: 100%;
 }
 
-/* BUTTONS */
 .mobile-btn-container {
   display: flex;
   gap: 10px;
@@ -65,15 +59,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 40px;
   background: linear-gradient(to right, #2ecc71, #da3da0);
   border-radius: 8px;
   color: white;
   text-decoration: none;
 }
 
-/* CART */
 .cart {
   position: relative;
   font-size: 22px;
@@ -91,21 +82,18 @@
   border-radius: 50%;
 }
 
-/* HAMBURGER */
 .menu-icon {
   display: none;
   font-size: 26px;
   cursor: pointer;
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
 
   .menu-icon {
     display: block;
   }
 
-  /* HIDE DESKTOP MENU */
   .ul-list {
     position: absolute;
     top: 70px;
@@ -126,12 +114,10 @@
     gap: 20px;
   }
 
-  /* HIDE DESKTOP BUTTON */
   .mobile-btn-container {
     display: none;
   }
 
-  /* SHOW INSIDE MENU */
   .ul-list ul::after {
     content: "";
   }
@@ -140,7 +126,6 @@
     margin-bottom: 10px;
   }
 
-  /* ADD LOGIN BTN INSIDE MENU */
   .ul-list.active::after {
     content: "";
   }
@@ -156,7 +141,6 @@
     content: "";
   }
 
-  /* CUSTOM BUTTONS INSIDE MENU */
   .ul-list.active + .mobile-btn-container {
     display: flex;
     position: absolute;

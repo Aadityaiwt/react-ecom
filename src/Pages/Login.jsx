@@ -15,42 +15,50 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const handleLogin = async () => {
-  if (!email || !password) {
-    return toast.error("Please fill all fields");
+
+  if (!email.trim() || !password.trim()) {
+    return toast.error("All fields are required");
+  }
+
+  if (!emailRegex.test(email)) {
+    return toast.error("Invalid email format");
   }
 
   setLoading(true);
-  try {
 
+  try {
     const res = await axios.post(`${API_URL}/api/login`, {
-      email,
+      email: email.toLowerCase(),
       password,
     });
 
     if (res.data.success) {
-  const { user, token } = res.data;
+      const { user, token } = res.data;
 
-  // ?? store user
-  localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
 
-  // ?? store token (IMPORTANT)
-  localStorage.setItem("token", token);
+      toast.success("Login successful");
 
-  toast.success("Login successful");
+      if (user.role === "admin") {
+        navigate("/dashboardLayout");
+      } else {
+        navigate("/");
+      }
 
-  setTimeout(() => {
-    if (user.role === "admin") {
-      navigate("/dashboardLayout");
     } else {
-      navigate("/");
+      toast.error(res.data.message || "Login failed");
     }
-  }, 1000);
-} else {
-      toast.error("Invalid Email or Password Or not exist this account please signup");
-    }
+
   } catch (error) {
-    toast.error("Something went wrong");
+    const msg =
+      error.response?.data?.message ||
+      "Server error, try again later";
+
+    toast.error(msg);
     console.log(error);
   } finally {
     setLoading(false);

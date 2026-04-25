@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./CSS/Sign.css";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const Sign = () => {
   const API_URL = import.meta.env.VITE_API_URL;
-
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -17,10 +15,48 @@ const Sign = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+  const validateForm = () => {
+    if (!name.trim()) {
+      toast.error("Name required");
+      return false;
+    }
+    if (name.length < 3) {
+      toast.error("Name must be at least 3 characters");
+      return false;
+    }
+
+    if (!email.trim()) {
+      toast.error("Email required");
+      return false;
+    }
+    if (!emailRegex.test(email)) {
+      toast.error("Invalid email format");
+      return false;
+    }
+
+    if (!password) {
+      toast.error("Password required");
+      return false;
+    }
+    if (!passwordRegex.test(password)) {
+      toast.error("Password must be 6+ chars with letters & numbers");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSignup = async () => {
+    if (!validateForm()) return;
+
     setLoading(true);
     try {
       const res = await axios.post(`${API_URL}/api/signup`, {
+        name,
         email,
         password,
       });
@@ -34,6 +70,8 @@ const Sign = () => {
     } catch (error) {
       toast.error("Error in signup");
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,40 +81,24 @@ const Sign = () => {
       <div className="outer">
         <h1 className="margin">Register</h1>
 
-        <button className="btn-icon">
-          <img src="./Images/google-icon.png" alt="google-icon" />
-        </button>
-
-        <div className="divider">
-          <span>OR</span>
-        </div>
-
         <div className="register-form">
-          <label htmlFor="email">Name</label>
-          <br />
+          <label>Name</label>
           <input
             type="text"
-            id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <br />
 
-          <label htmlFor="email">Email</label>
-          <br />
+          <label>Email</label>
           <input
             type="text"
-            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <br />
 
-          <label htmlFor="password">Password</label>
-          <br />
+          <label>Password</label>
           <input
             type="password"
-            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -88,11 +110,6 @@ const Sign = () => {
 
         <p>
           Already have an account? <Link to="/login">Log in</Link>
-        </p>
-
-        <p>
-          By continuing, you accept our <Link>Terms of Service</Link> and
-          acknowledgement.
         </p>
       </div>
       <Footer />
