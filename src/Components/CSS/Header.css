@@ -105,12 +105,13 @@
 
   .ul-list.active {
     left: 0;
+    background-color: #2ecc71;
   }
 
   .ul-list ul {
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 25px;
     gap: 20px;
   }
 
