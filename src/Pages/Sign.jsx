@@ -19,7 +19,7 @@ const Sign = () => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$/
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$/;
 
   const validateForm = () => {
     if (!name.trim()) {
@@ -45,7 +45,7 @@ const Sign = () => {
       return false;
     }
     if (!passwordRegex.test(password)) {
-      toast.error("Password must be 6+ chars with letters & numbers");
+      toast.error("Invalid Password");
       return false;
     }
 
