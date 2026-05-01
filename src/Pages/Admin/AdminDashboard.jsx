@@ -56,14 +56,12 @@ const AdminDashboard = () => {
     }
   };
 
-  // ?? Fetch Chart Data (Monthly Orders)
   const fetchChartData = async () => {
     try {
       const res = await axios.get(`${API_URL}/api/orders`);
 
       const orders = Array.isArray(res.data) ? res.data : res.data.orders || [];
 
-      // ?? Group by month (frontend logic)
       const monthlyData = {};
 
       orders.forEach((order) => {
@@ -101,7 +99,6 @@ const AdminDashboard = () => {
           <p>Loading dashboard...</p>
         ) : (
           <>
-            {/* ?? Cards */}
             <div className="dashboard-cards">
               <div className="card products">
                 <BaggageClaim size={40} />
